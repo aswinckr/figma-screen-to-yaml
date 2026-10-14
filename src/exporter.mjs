@@ -52,7 +52,7 @@ export function compile(snapshot, { mapping = { version: 1, entries: [] }, templ
     throw new Error('Template must have a meta object and an empty body array. It is a screen-layout template, not a per-component spec.');
   }
   if (Object.keys(template).some(k => !['meta','body','behavior'].includes(k))) throw new Error('Template supports meta/body plus explicitly supplied behavior.');
-  const diagnostics = [], measurements = [], boundaries = [], assetCandidates = [];
+  const diagnostics = [], measurements = [], boundaries = [], assetCandidates = [], componentReads = [];
   const add = (code,n,message,severity='warning') => diagnostics.push({ severity,code,nodeId:n.id,message });
   if (!snapshot.rest) add('PARTIAL_NODE_EXPORT',snapshot.document,'Bare node export: omitted fields are unknown, not API defaults. Re-fetch through REST for complete layout and component identity.');
   const rootSize = dimensions(snapshot.document);
@@ -116,12 +116,19 @@ export function compile(snapshot, { mapping = { version: 1, entries: [] }, templ
     const box = { id,style }, result = { box,children:[] };
 
     if (mapped) {
-      const component=compileComponent(n,mapped,{snapshot,mapping,add,assetFor,nodeId});
-      result.children.push(component);
-      const internalCount=[...walk(n)].length-1; excluded+=internalCount;
-      boundaries.push({ figmaNodeId:n.id,component:mapped.target,excludedInternalNodes:internalCount });
-      // Do NOT copy the component's padding/layout into its outer placement wrapper.
-      return result;
+      const diagnosticStart=diagnostics.length,readStart=componentReads.length;
+      const component=compileComponent(n,mapped,{snapshot,mapping,add,assetFor,nodeId,onRead:read=>componentReads.push(read)});
+      const failed=diagnostics.slice(diagnosticStart).some(d=>d.code!=='COMPONENT_CONTENT_REVIEW');
+      if(mapped.failClosed===true && failed) {
+        componentReads.splice(readStart);
+        add('MAPPING_FALLBACK',n,'Required mapping content/assets could not be resolved. Keeping the generic subtree instead of emitting an incomplete component.');
+      } else {
+        result.children.push(component);
+        const internalCount=[...walk(n)].length-1; excluded+=internalCount;
+        boundaries.push({ figmaNodeId:n.id,component:mapped.target,excludedInternalNodes:internalCount });
+        // Do NOT copy the component's padding/layout into its outer placement wrapper.
+        return result;
+      }
     }
     Object.assign(style,visualStyle(n,add));
     if (n.type === 'INSTANCE') add('UNMAPPED_COMPONENT',n,'No reviewed identity mapping. Keeping this instance as a container and traversing its children; not guessing library identity.');
@@ -219,7 +226,7 @@ export function compile(snapshot, { mapping = { version: 1, entries: [] }, templ
   const counts={}; for(const diag of diagnostics) counts[diag.code]=(counts[diag.code]||0)+1;
   return { screen, facts, measurements:{schemaVersion:1,units:'Figma px',
     note:'Measured edge distances are signed, parent-local axis-aligned geometry, NOT authored padding. Sizes in YAML describe this snapshot, not responsive rules.',
-    source:{fileKey:snapshot.fileKey,nodeId:snapshot.document.id,version:snapshot.version},nodes:measurements,siblingGaps:gaps,boundaries,assetCandidates},
+    source:{fileKey:snapshot.fileKey,nodeId:snapshot.document.id,version:snapshot.version},nodes:measurements,siblingGaps:gaps,boundaries,assetCandidates,componentReads},
     diagnostics:{schemaVersion:1,status:diagnostics.length?'needs-review':'layout-exported',
       scope:'Structured screen draft; renderer compatibility and live visual fidelity require verification.',
       summary:{extractedNodes:facts.nodes.length,emittedNodes:emitted,recognizedComponents:boundaries.length,excludedComponentInternalNodes:excluded,counts},items:diagnostics} };

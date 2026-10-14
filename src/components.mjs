@@ -1,16 +1,17 @@
 import {findMapping,identity} from './input.mjs';
+import {resolveBinding} from './bindings.mjs';
 
 export function selectDescendants(root,selector,snapshot) {
-  const allowed=['nodeId','name','componentKey','property','type','path'];
+  const allowed=['nodeId','name','componentKey','property','type','path','childIndex'];
   if(!selector || !Object.keys(selector).length || Object.keys(selector).some(k=>!allowed.includes(k)))throw new Error('Selector needs nodeId/name/componentKey/property/type/path.');
   const found=[];
-  function visit(n,path) {
+  function visit(n,path,childIndex) {
     if(n.visible===false)return;
     if(Object.entries(selector).every(([k,v])=> k==='nodeId'?n.id===v:k==='componentKey'?identity(n,snapshot).componentKey===v:
-      k==='property'?Object.values(n.componentPropertyReferences || {}).includes(v):k==='path'?JSON.stringify(path)===JSON.stringify(v):n[k]===v))found.push(n);
-    for(const c of n.children || [])visit(c,[...path,c.name]);
+      k==='property'?Object.values(n.componentPropertyReferences || {}).includes(v):k==='path'?JSON.stringify(path)===JSON.stringify(v):k==='childIndex'?childIndex===v:n[k]===v))found.push(n);
+    for(const [i,c] of (n.children || []).entries())visit(c,[...path,c.name],i);
   }
-  for(const c of root.children || [])visit(c,[c.name]);
+  for(const [i,c] of (root.children || []).entries())visit(c,[c.name],i);
   return found;
 }
 export function compileComponent(n,mapped,ctx,stack=new Set()) {
@@ -39,6 +40,7 @@ export function compileComponent(n,mapped,ctx,stack=new Set()) {
       add('INSTANCE_SWAP_NEEDS_SLOT_RULE',n,`Use a slotRules selector for the actual descendant instance of ${rule.from}; a main-component ID is not its overridden content.`);continue;
     }
     assign(rule.to,value);
+    ctx.onRead?.({componentNodeId:n.id,sourceNodeId:n.id,field:`property:${rule.from}`,destination:rule.to});
   }
   function selected(rule) {
     const hits=selectDescendants(n,rule.selector,snapshot);
@@ -46,17 +48,24 @@ export function compileComponent(n,mapped,ctx,stack=new Set()) {
     if(!rule.all && hits.length!==1){add('AMBIGUOUS_SELECTOR',n,`Selector matched ${hits.length} nodes; refine it or explicitly set all:true.`);return [];}
     return hits;
   }
+  for(const [prop,binding] of Object.entries(mapped.propBindings || {})) {
+    const result=resolveBinding(binding,{root:n,select:(scope,selector)=>selectDescendants(scope,selector,snapshot),assetFor,add,
+      read:(hit,field,destination)=>ctx.onRead?.({componentNodeId:n.id,sourceNodeId:hit.id,field,destination})},`props.${prop}`);
+    if(result.resolved)assign(`props.${prop}`,result.value);
+  }
   for(const rule of mapped.contentRules || []) {
     const hits=selected(rule);if(!hits.length)continue;
     if(!['characters','name'].includes(rule.field || 'characters'))throw new Error('Content rule field must be characters or explicit name.');
     const values=hits.map(h=>h[rule.field || 'characters']);
     if(values.some(v=>v===undefined)){add('CONTENT_FIELD_MISSING',n,'Selected content field is missing.');continue;}
     assign(rule.to,rule.all?values:values[0]);
+    for(const hit of hits)ctx.onRead?.({componentNodeId:n.id,sourceNodeId:hit.id,field:rule.field || 'characters',destination:rule.to});
   }
   for(const [slot,rule] of Object.entries(mapped.slotRules || {})) {
     if(rule.when && !Object.entries(rule.when).every(([k,v])=>n.componentProperties?.[k]?.value===v))continue;
     const values=[];
     for(const hit of selected(rule)) {
+      ctx.onRead?.({componentNodeId:n.id,sourceNodeId:hit.id,field:`slot:${rule.kind}`,destination:`slots.${slot}`});
       if(rule.kind==='text') {
         if(typeof hit.characters==='string')values.push({$text:hit.characters});
         else add('MISSING_TEXT',hit,'Slot text has no characters.');

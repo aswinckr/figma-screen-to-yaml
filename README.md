@@ -4,7 +4,7 @@ A local, deterministic **Figma REST API** exporter. No MCP server or AI model is
 
 Give it a screen link. Get the complete selected layer data, a structured screen YAML draft, local assets, and explicit diagnostics. Component internals are **inspected**, but not emitted as duplicate layout boxes when a reviewed component mapping exists.
 
-**Status: v0.2.1, experimental.** Automated fixtures and mocked network tests pass. One private live screen has been exported and source-audited; compatibility with your particular renderer and visual parity still need verification. The included schema is an interchange contract, **not an official Bento or Figma schema**. This is not a universal one-click app generator.
+**Status: v0.2.2, experimental.** Automated fixtures and mocked network tests pass. One private live screen has been exported and source-audited; compatibility with your particular renderer and visual parity still need verification. The included schema is an interchange contract, **not an official Bento or Figma schema**. This is not a universal one-click app generator.
 
 ## Run the demo
 
@@ -89,6 +89,14 @@ The additional schema must be self-contained with local `$ref` definitions; remo
 Exit 0 = export completed, **not** visual correctness. Exit 1 = invalid configuration, fetch failure, schema failure or existing output directory. Exit 2 = strict-mode review items.
 
 ## What improved in v0.2
+
+### v0.2.2 structured component mappings
+
+- Declarative nested prop bindings for item arrays, actual visible text, typed properties and local image assets.
+- Explicit child-index selection for identically named sibling layers; no first-match guessing.
+- Opt-in `failClosed:true` preserves a generic subtree when required mapping content or assets cannot be resolved.
+- Source-node/field provenance for component reads in `measurements.json`.
+- Private design-specific mappings remain outside this public repository; these features do not establish renderer compatibility.
 
 ### v0.2.1 live-export fixes
 

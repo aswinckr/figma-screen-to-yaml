@@ -54,7 +54,8 @@ export function validateMapping(mapping) {
     }
     if ((e.match.componentId || e.match.nodeId) && !e.match.fileKey) throw new Error('Node/component IDs are file-scoped: add match.fileKey (use keys for cross-file reuse).');
     if (e.target !== null && (typeof e.target !== 'string' || !e.target.trim())) throw new Error('Mapping target must be a nonempty YAML component name or null for unresolved.');
-    for (const field of ['props','when']) if (e[field] != null && (typeof e[field] !== 'object' || Array.isArray(e[field]))) throw new Error(`${field} must be an object.`);
+    for (const field of ['props','when','propBindings']) if (e[field] != null && (typeof e[field] !== 'object' || Array.isArray(e[field]))) throw new Error(`${field} must be an object.`);
+    if(e.failClosed!==undefined && typeof e.failClosed!=='boolean')throw new Error('failClosed must be a boolean.');
   }
 }
 

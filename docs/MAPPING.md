@@ -40,6 +40,7 @@ A selector may combine these exact-match fields:
 - `name`: exact layer name; brittle if designers rename it.
 - `type`: Figma node type.
 - `path`: array of exact layer names from the mapped instance's immediate child to the target.
+- `childIndex`: zero-based index within the immediate parent. Combine with name/type/path when identically named siblings have different roles. This is an explicit authored-order rule, not a guess based on their text.
 
 All supplied criteria must match. Hidden nodes and their hidden subtrees are excluded from slot selection, but retained in facts. A selector matching multiple nodes emits `AMBIGUOUS_SELECTOR` unless `all:true` explicitly requests a list in authored traversal order.
 
@@ -57,6 +58,36 @@ All supplied criteria must match. Hidden nodes and their hidden subtrees are exc
 These rules do not infer slot semantics from arbitrary layer names. Figma SLOT nodes may be selected by path/type/reference, but a generic slot-container-to-library-slot translation is not automatic.
 
 Review the actual populated content, then set `contentReviewed:true` to acknowledge that unused internal layers are implementation detail. Until then, `COMPONENT_CONTENT_REVIEW` reminds you the mapping may omit content. This flag does not prove visual correctness.
+
+## Structured props and local image props
+
+`propBindings` builds arrays/objects such as product-list items. Literal values keep their types; expressions read the actual instance, not its library defaults:
+
+```json
+{
+  "failClosed": true,
+  "propBindings": {
+    "items": [{
+      "id": {"$source": {"field": "id"}},
+      "name": {"$source": {"selector": {"name": "Title", "type": "TEXT"}, "field": "characters"}},
+      "imageSrc": {"$source": {"selector": {"name": "Photo content"}, "asset": true}},
+      "featured": {"$source": {"selector": {"name": "Featured indicator"}, "exists": true}}
+    }]
+  }
+}
+```
+
+A `$source` expression has exactly one read mode: `field` (`characters`, `id`, or explicit `name`), `property` (exact property name), `asset:true` (local `{$asset:path}`), or `exists:true` (visible matches become a boolean). Without a selector, it reads the current instance. INSTANCE_SWAP properties cannot supply actual overridden content.
+
+Use `values` for an explicit typed value lookup, or `all:true` for an ordered array. `join:" "` explicitly joins an all-string array. Missing/ambiguous required values produce diagnostics; they do not choose the first match. `optional:true` omits an unresolved bound prop without a missing-match warning; do not use it for required content. An unresolved nested value causes its entire bound prop to be omitted, not a malformed partial item.
+
+`{$each:{selector:{...},value:{label:{$source:{field:"characters"}}}}` builds one structured value per visible match in authored order. Inside `value`, the selected node becomes the current scope. This is useful for lists but does **not** prove that labels are the entire component configuration: inspect icons, selection, badges and other slots too.
+
+With `failClosed:true`, any mapping-resolution diagnostic other than the general content-review reminder retains the generic source subtree instead of collapsing it into an incomplete component. This includes missing assets; a live export plans those assets and recompiles after downloading them. Unknown configuration syntax remains an error. This guard catches failed rules, **not content for which no rule was written**.
+
+`measurements.json.componentReads` records component node, actual source node, source field, and output destination for successful mappings. It is provenance, not proof that a target renderer supports the props or reproduces the design. Keep explicit review warnings until the full component content and renderer contract have been checked.
+
+For a photo prop, select the photo composition, not a whole component containing buttons/text/borders. Leaf-image bytes alone may lose authored crops/positioning; rendering the entire thumbnail may bake in a border the component draws again. Inspect the subtree and choose the intended content boundary.
 
 ## Offline replay
 

@@ -128,7 +128,7 @@ async function main() {
     files['measurements.json']=jsonText(result.measurements);
     files['measurements.yaml']=YAML.stringify(result.measurements,{lineWidth:0,aliasDuplicateObjects:false});
     files['diagnostics.json']=jsonText(result.diagnostics);
-    files['manifest.json']=jsonText({exporterVersion:'0.2.1',sizing:opts.sizing || 'snapshot',assetsSha256:digest(assetBundle.entries),inputSha256:digest(raw),mappingSha256:digest(mapping),
+    files['manifest.json']=jsonText({exporterVersion:'0.2.2',sizing:opts.sizing || 'snapshot',assetsSha256:digest(assetBundle.entries),inputSha256:digest(raw),mappingSha256:digest(mapping),
       templateSha256:digest(template),source:{fileKey:snapshot.fileKey,nodeId:snapshot.document.id,version:snapshot.version}});
   }
   // Stage a complete bundle, then publish it. Never overwrite existing output.
