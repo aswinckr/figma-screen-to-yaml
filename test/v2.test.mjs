@@ -7,6 +7,36 @@ import {validateScreen,validateExternal} from '../src/validation.mjs';
 import {textRuns} from '../src/visuals.mjs';
 import {frame,button,fixture,mapping} from './fixture.mjs';
 
+test('REST omitted padding and gap use documented zero defaults with provenance; bare nodes stay unknown',()=>{
+  const n=frame('1:1');for(const k of ['paddingTop','paddingRight','paddingBottom','paddingLeft','itemSpacing'])delete n[k];
+  n.paddingLeft=8;
+  const rest=compile(selectSnapshot(fixture(n))),bare=compile(selectSnapshot(n));
+  assert.deepEqual(rest.screen.body[0].box.layout.padding,[0,0,0,8]);assert.equal(rest.screen.body[0].box.layout.gap,0);
+  assert.deepEqual(rest.measurements.nodes[0].apiDefaults,{paddingTop:0,paddingRight:0,paddingBottom:0,itemSpacing:0});
+  assert.ok(!rest.diagnostics.items.some(d=>['MISSING_PADDING','MISSING_GAP'].includes(d.code)));
+  assert.equal(bare.screen.body[0].box.layout.padding,undefined);assert.equal(bare.screen.body[0].box.layout.gap,undefined);
+});
+test('hidden descendants retain source data without requesting invisible assets',()=>{
+  const hidden=frame('2:1',{visible:false,children:[frame('3:1',{type:'VECTOR'})]});
+  const r=compile(selectSnapshot(fixture(frame('1:1',{children:[hidden]}))));
+  assert.equal(r.facts.nodes.length,3);assert.equal(r.screen.body[0].children[0].children[0].box.style.display,'none');
+  assert.ok(!r.diagnostics.items.some(d=>d.code==='ASSET_NOT_EXPORTED'));
+});
+test('vertical linear gradient preserves stop positions, alpha, and paint opacity',()=>{
+  const n=frame('1:1',{fills:[{type:'GRADIENT_LINEAR',opacity:0.5,gradientHandlePositions:[{x:0.5,y:0},{x:0.5,y:1},{x:0,y:0}],gradientStops:[{position:0,color:{r:1,g:0,b:0,a:1}},{position:1,color:{r:1,g:0,b:0,a:0}}]}]});
+  const r=compile(selectSnapshot(fixture(n)));
+  assert.equal(r.screen.body[0].box.style.backgroundImage,'linear-gradient(180deg, rgba(255, 0, 0, 0.5) 0%, rgba(255, 0, 0, 0) 100%)');
+  assert.ok(!r.diagnostics.items.some(d=>d.code==='COMPLEX_PAINT'));
+  n.fills[0].gradientHandlePositions[1].x=1;
+  assert.ok(compile(selectSnapshot(fixture(n))).diagnostics.items.some(d=>d.code==='COMPLEX_PAINT'));
+});
+test('reverse paint order is explicit without reversing authored child order or spacing',()=>{
+  const n=frame('1:1',{itemReverseZIndex:true,children:[frame('2:1'),frame('2:2')]});
+  const r=compile(selectSnapshot(fixture(n)));const b=r.screen.body[0];
+  assert.equal(b.box.style.isolation,'isolate');assert.deepEqual(b.children.map(c=>c.box.style.zIndex),[2,1]);
+  assert.deepEqual(r.measurements.nodes.map(n=>n.figmaNodeId),['1:1','2:1','2:2']);assert.equal(b.box.layout.gap,12);
+});
+
 test('mapped component internals, hidden nodes and unknown fields survive full fact extraction',()=>{
   const n=button();n.children[0].visible=false;n.children[0].customFutureField={value:0,enabled:false};
   const r=compile(selectSnapshot(fixture(frame('1:1',{children:[n]}))),{mapping});

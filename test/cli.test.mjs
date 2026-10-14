@@ -7,7 +7,7 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import YAML from 'yaml';
 const project=fileURLToPath(new URL('../',import.meta.url));
-const invoke=(args,extra={})=>spawnSync(process.execPath,['src/cli.mjs',...args],{cwd:project,encoding:'utf8',...extra});
+const invoke=(args,extra={})=>spawnSync(process.execPath,[path.join(project,'src/cli.mjs'),...args],{cwd:project,encoding:'utf8',...extra});
 
 test('CLI offline bundle is deterministic, validates, discovers, and refuses overwrite',()=>{
   const temp=mkdtempSync(path.join(tmpdir(),'figma-yaml-test-'));
@@ -15,6 +15,7 @@ test('CLI offline bundle is deterministic, validates, discovers, and refuses ove
     const args=['export','--input','examples/screen.figma.json','--mapping','examples/components.json'];
     for(const dir of ['one','two']) {
       const r=invoke([...args,'--out',path.join(temp,dir),'--strict']);assert.equal(r.status,0,r.stderr);
+      assert.match(r.stderr,/Reading local Figma snapshot/);assert.match(r.stderr,/Export complete/);
     }
     for(const name of readdirSync(path.join(temp,'one'))) assert.equal(readFileSync(path.join(temp,'one',name),'utf8'),readFileSync(path.join(temp,'two',name),'utf8'));
     const measurements=YAML.parse(readFileSync(path.join(temp,'one','measurements.yaml'),'utf8'));
@@ -36,8 +37,11 @@ test('CLI strict mode writes useful diagnostics, then exits 2 for unknown compon
   } finally {rmSync(temp,{recursive:true,force:true});}
 });
 test('CLI live mode without a credential gives setup instructions without making a request',()=>{
-  const r=invoke(['export','https://www.figma.com/design/FILE/test?node-id=1-2','--out',path.join(tmpdir(),`no-token-${process.pid}`)],{env:{...process.env,FIGMA_TOKEN:''}});
-  assert.equal(r.status,1);assert.match(r.stderr,/Set FIGMA_TOKEN/);
+  const temp=mkdtempSync(path.join(tmpdir(),'figma-no-token-'));
+  try {
+    const r=invoke(['export','https://www.figma.com/design/FILE/test?node-id=1-2','--out',path.join(temp,'export')],{cwd:temp,env:{...process.env,FIGMA_TOKEN:''}});
+    assert.equal(r.status,1);assert.match(r.stderr,/Set FIGMA_TOKEN/);
+  } finally {rmSync(temp,{recursive:true,force:true});}
 });
 test('rich CLI demo packages local image slots and replays offline without losing assets',()=>{
   const temp=mkdtempSync(path.join(tmpdir(),'figma-rich-test-'));

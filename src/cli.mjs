@@ -5,10 +5,14 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import YAML from 'yaml';
 import {getScreen,parseFigmaUrl} from './api.mjs';
-import {selectSnapshot,discover} from './input.mjs';
+import {selectSnapshot,discover,walk} from './input.mjs';
 import {compile,canonical,digest} from './exporter.mjs';
 import {collectAssets,loadLocalAssets} from './assets.mjs';
 import {validateExternal,validateScreen} from './validation.mjs';
+
+import {createProgress} from './progress.mjs';
+const progress=createProgress();
+const onProgress=message=>progress.update(message);
 
 const project=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const help=`Figma → structured screen YAML (no MCP or AI)
@@ -74,14 +78,16 @@ async function main() {
   if(!opts.input && !argument)throw new Error('Supply a Figma URL or --input JSON.');
   const out=path.resolve(opts.out||`exports/${command==='export'?'screen':'discovery'}`);
   try {await access(out);throw new Error(`Output already exists: ${out}. Use a new --out directory.`);} catch(e){if(e.code!=='ENOENT')throw e;}
+  onProgress('Starting export');
   let raw;
-  if(opts.input)raw=await json(opts.input);
+  if(opts.input){onProgress('Reading local Figma snapshot');raw=await json(opts.input);}
   else {
     await loadEnv();
     const location=parseFigmaUrl(argument);
     if(opts.version)location.version=opts.version;
-    raw=await getScreen(location,{token:process.env.FIGMA_TOKEN});
+    raw=await getScreen(location,{token:process.env.FIGMA_TOKEN,onProgress});
   }
+  onProgress('Inspecting source layers and component identities');
   const snapshot=selectSnapshot(raw,opts['node-id']);
   if(opts['file-key']) {
     if(snapshot.fileKey && snapshot.fileKey!==opts['file-key'])throw new Error('--file-key conflicts with snapshot source.');
@@ -89,18 +95,21 @@ async function main() {
   }
   const catalog=await json(path.join(project,'config/spec-catalog.json'));
   const candidates=discover(snapshot,catalog);
+  onProgress(`Read ${[...walk(snapshot.document)].length} layers; found ${candidates.entries.length} component identities`);
   const files={'raw.figma.json':jsonText(raw),'components.discovered.json':jsonText(candidates)};
   let result;
   if(command==='export') {
     const mapping=await json(opts.mapping||path.join(project,'config/components.json'));
     const template=YAML.parse(await readFile(opts.template||path.join(project,'templates/screen.template.yaml'),'utf8'));
     let assetBundle={entries:{},files:{},diagnostics:[]};
-    if(opts['asset-manifest'])assetBundle=await loadLocalAssets(opts['asset-manifest']);
+    if(opts['asset-manifest']){onProgress('Loading local assets');assetBundle=await loadLocalAssets(opts['asset-manifest']);}
     else if(!opts.input && !opts['no-assets']) {
+      onProgress('Planning required assets');
       const preview=compile(snapshot,{mapping,template,sizing:opts.sizing || 'snapshot'});
       const nodeIds=preview.diagnostics.items.filter(d=>d.code==='ASSET_NOT_EXPORTED').map(d=>d.nodeId);
-      assetBundle=await collectAssets(snapshot,{token:process.env.FIGMA_TOKEN,reference:opts.reference,nodeIds});
+      assetBundle=await collectAssets(snapshot,{token:process.env.FIGMA_TOKEN,reference:opts.reference,nodeIds,onProgress});
     }
+    onProgress('Compiling screen YAML and source facts');
     result=compile(snapshot,{mapping,template,assets:assetBundle.entries,sizing:opts.sizing || 'snapshot'});
     result.diagnostics.items.push(...assetBundle.diagnostics);
     result.diagnostics.summary.counts={};
@@ -110,6 +119,7 @@ async function main() {
     files['assets.json']=jsonText({version:1,entries:assetBundle.entries});
     if(opts.reference && assetBundle.entries[snapshot.document.id])files['reference.png']=assetBundle.files[assetBundle.entries[snapshot.document.id].path];
     files['facts.json']=jsonText(result.facts);
+    onProgress('Validating and serializing output');
     if(opts.schema)validateExternal(result.screen,await json(opts.schema));
     validateScreen(result.screen);
     files['screen.yaml']='# Generated screen draft (interchange schema v2). See measurements.json and diagnostics.json for provenance and limits.\n'+YAML.stringify(result.screen,{lineWidth:0,aliasDuplicateObjects:false});
@@ -118,10 +128,11 @@ async function main() {
     files['measurements.json']=jsonText(result.measurements);
     files['measurements.yaml']=YAML.stringify(result.measurements,{lineWidth:0,aliasDuplicateObjects:false});
     files['diagnostics.json']=jsonText(result.diagnostics);
-    files['manifest.json']=jsonText({exporterVersion:'0.2.0',sizing:opts.sizing || 'snapshot',assetsSha256:digest(assetBundle.entries),inputSha256:digest(raw),mappingSha256:digest(mapping),
+    files['manifest.json']=jsonText({exporterVersion:'0.2.1',sizing:opts.sizing || 'snapshot',assetsSha256:digest(assetBundle.entries),inputSha256:digest(raw),mappingSha256:digest(mapping),
       templateSha256:digest(template),source:{fileKey:snapshot.fileKey,nodeId:snapshot.document.id,version:snapshot.version}});
   }
   // Stage a complete bundle, then publish it. Never overwrite existing output.
+  onProgress(`Writing ${Object.keys(files).length} output files`);
   await mkdir(path.dirname(out),{recursive:true});
   const staging=`${out}.tmp-${process.pid}`;
   await mkdir(staging);
@@ -130,6 +141,7 @@ async function main() {
     await access(out).then(()=>{throw new Error('Output appeared while exporting; refusing to overwrite.');},e=>{if(e.code!=='ENOENT')throw e;});
     await rename(staging,out);
   } catch(e) {await rm(staging,{recursive:true,force:true});throw e;}
+  onProgress('Export complete');
   console.log(`Saved ${out}`);
   if(result) {
     const s=result.diagnostics.summary;
@@ -138,4 +150,4 @@ async function main() {
     if(opts.strict && result.diagnostics.items.length)process.exitCode=2;
   } else console.log(`${candidates.entries.length} component identities found. Set target on reviewed entries and use this file with --mapping.`);
 }
-main().catch(e=>{console.error(`Error: ${e.message}`);process.exitCode=1;});
+main().catch(e=>{console.error(`Error: ${e.message}`);process.exitCode=1;}).finally(()=>progress.close());

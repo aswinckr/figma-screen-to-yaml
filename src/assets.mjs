@@ -11,9 +11,10 @@ export function assetNodes(snapshot) {
     ['VECTOR','BOOLEAN_OPERATION','ELLIPSE','STAR','POLYGON'].includes(n.type) ||
     (n.fills || []).some(p=>p.visible!==false && p.type==='IMAGE'));
 }
-export async function collectAssets(snapshot,{token,fetchImpl=fetch,reference=false,nodeIds,sleep=ms=>new Promise(r=>setTimeout(r,ms))}={}) {
+export async function collectAssets(snapshot,{token,fetchImpl=fetch,reference=false,nodeIds,sleep=ms=>new Promise(r=>setTimeout(r,ms)),onProgress=()=>{}}={}) {
   const entries={},files={},diagnostics=[];
   const ids=[...new Set([...(nodeIds || assetNodes(snapshot).map(n=>n.id)),...(reference?[snapshot.document.id]:[])])];
+  onProgress(`Assets requested: ${ids.length} (including reference if requested)`);
   if(!ids.length)return {entries,files,diagnostics};
   if(!token || !snapshot.fileKey)throw new Error('Asset export needs FIGMA_TOKEN and a source file key.');
   for(let offset=0;offset<ids.length;offset+=25) {
@@ -23,12 +24,14 @@ export async function collectAssets(snapshot,{token,fetchImpl=fetch,reference=fa
     let payload;
     try {
       for(let attempt=0;attempt<3;attempt++) {
+        onProgress(`Rendering asset batch ${Math.floor(offset/25)+1}/${Math.ceil(ids.length/25)}: ${batch.length} images, attempt ${attempt+1}/3 (60s request timeout)`);
         const response=await fetchImpl(`https://api.figma.com/v1/images/${encodeURIComponent(snapshot.fileKey)}?${query}`,{
           headers:{'X-Figma-Token':token},redirect:'error',signal:AbortSignal.timeout(60000)});
         if(response.status===429) {
           const value=response.headers.get('retry-after');
           const seconds=value && /^\d+(\.\d+)?$/.test(value)?Number(value):NaN;
           if(!Number.isFinite(seconds) || seconds>30 || attempt===2)throw new Error(`Rate limited; retry ${Number.isFinite(seconds)?`after ${seconds} seconds`:'later'}.`);
+          onProgress(`Asset rendering rate limited; waiting ${seconds}s before retry`);
           await sleep(seconds*1000);continue;
         }
         if(!response.ok)throw new Error(`Render API HTTP ${response.status}.`);
@@ -36,9 +39,10 @@ export async function collectAssets(snapshot,{token,fetchImpl=fetch,reference=fa
       }
     } catch(error) {
       const message=/^(Rate limited|Render API HTTP|Invalid render)/.test(error.message)?error.message:'Render request failed.';
-      batch.forEach(id=>diagnostics.push({severity:'warning',code:'ASSET_RENDER_FAILED',nodeId:id,message}));continue;
+      batch.forEach(id=>diagnostics.push({severity:'warning',code:'ASSET_RENDER_FAILED',nodeId:id,message}));onProgress(`Asset batch failed: ${message}`);continue;
     }
     for(const id of batch) {
+      onProgress(`Downloading asset ${offset+batch.indexOf(id)+1}/${ids.length} (60s request timeout)`);
       const url=payload.images[id];
       if(!url){diagnostics.push({severity:'warning',code:'ASSET_RENDER_EMPTY',nodeId:id,message:'Figma returned no rendered image (possibly hidden/empty).'});continue;}
       try {
@@ -55,6 +59,7 @@ export async function collectAssets(snapshot,{token,fetchImpl=fetch,reference=fa
       } catch {diagnostics.push({severity:'warning',code:'ASSET_DOWNLOAD_FAILED',nodeId:id,message:'Could not download a valid PNG; retry export. Service URL omitted.'});}
     }
   }
+  onProgress(`Assets finished: ${Object.keys(entries).length}/${ids.length} saved; ${diagnostics.length} failures/empty renders`);
   return {entries,files,diagnostics};
 }
 export async function loadLocalAssets(manifestPath) {

@@ -11,6 +11,7 @@
 - Authored Auto Layout padding, gaps, alignment, wrapping, available grid tracks/cell placement.
 - Parent-local transforms, positions and overlap measurements where the source provides sufficient geometry.
 - Simple solid paints and strokes; basic divider lines, radius and shadows.
+- Axis-aligned linear gradients and reversed child paint order. Other gradient transforms remain diagnosed.
 - Base typography and REST character-style overrides represented as inherited styles and inline run boxes.
 - Component keys/variants and explicit typed props/content/nested slot rules.
 - PNG rendered-node assets and optional frame reference, with local asset paths/hashes.
@@ -32,4 +33,4 @@
 
 The test suite covers synthetic snapshots, recursive slot mappings, missing/ambiguous data, text/style preservation, geometry, offline replay, mocked network behavior and local assets. CI runs the same suite and an offline demo across Node versions.
 
-No live Figma account or target renderer was used to establish this release's visual fidelity. Start with one real screen and compare before treating generated YAML as production-ready.
+Version 0.2.1 was exercised against one private live screen. Its source fields, exported text, dimensions, padding/gaps and asset integrity were audited, and the Figma reference image inspected. No target renderer was available: this establishes source-data checks, not pixel-perfect reproduction or universal coverage. The private fixture and its outputs are not published.

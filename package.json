@@ -1,6 +1,6 @@
 {
   "name": "figma-screen-to-yaml",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "type": "module",
   "description": "Deterministic Figma REST extraction with structured screen YAML, component slots, and assets",
   "engines": {

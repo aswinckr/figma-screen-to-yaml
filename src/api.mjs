@@ -13,13 +13,14 @@ export function parseFigmaUrl(input) {
 }
 
 export async function getScreen({ fileKey, nodeId, version }, {
-  token, fetchImpl = fetch, sleep = ms => new Promise(r => setTimeout(r, ms)), maxRetries = 2,
+  token, fetchImpl = fetch, sleep = ms => new Promise(r => setTimeout(r, ms)), maxRetries = 2, onProgress = () => {},
 } = {}) {
   if (!token) throw new Error('Set FIGMA_TOKEN in .env or your environment. Offline --input and npm run demo need no token.');
   const query = new URLSearchParams({ ids: nodeId, geometry: 'paths' });
   if (version) query.set('version', version);
   const url = `https://api.figma.com/v1/files/${encodeURIComponent(fileKey)}/nodes?${query}`;
   for (let attempt = 0; ; attempt++) {
+    onProgress(`Fetching Figma screen: attempt ${attempt+1}/${maxRetries+1} (60s request timeout)`);
     let response;
     try {
       response = await fetchImpl(url, { headers: { 'X-Figma-Token': token }, redirect: 'error', signal: AbortSignal.timeout(60000) });
@@ -34,14 +35,16 @@ export async function getScreen({ fileKey, nodeId, version }, {
       if (!Number.isFinite(seconds) || seconds > 30 || attempt >= maxRetries) {
         throw new Error(`Figma rate limit reached. Retry ${Number.isFinite(seconds) ? `after at least ${Math.ceil(seconds)} seconds` : 'later (no usable Retry-After header)'}.`);
       }
+      onProgress(`Figma rate limited the request; waiting ${Math.ceil(seconds)}s before retry`);
       await sleep(Math.ceil(seconds * 1000));
       continue;
     }
-    if (response.status >= 500 && attempt < maxRetries) { await sleep(1000 * 2 ** attempt); continue; }
+    if (response.status >= 500 && attempt < maxRetries) { onProgress(`Figma HTTP ${response.status}; retrying in ${2**attempt}s`); await sleep(1000 * 2 ** attempt); continue; }
     if (response.status === 401 || response.status === 403) throw new Error('Figma denied access. Check token expiry, file_content:read scope, and permission to this file.');
     if (response.status === 404) throw new Error('Figma file not found or not accessible to this token.');
     if (!response.ok) throw new Error(`Figma returned HTTP ${response.status}.`);
     let data;
+    onProgress('Reading Figma response body');
     try { data = await response.json(); } catch { throw new Error('Figma returned invalid JSON.'); }
     if (data.err || !data.nodes?.[nodeId]?.document) throw new Error('Selected node was not returned. Check the node link and file access.');
     // No depth parameter: keep the complete selected subtree and metadata.

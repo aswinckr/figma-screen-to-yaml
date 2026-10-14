@@ -47,6 +47,7 @@ export function compile(snapshot, { mapping = { version: 1, entries: [] }, templ
   validateMapping(mapping);
   if(!['snapshot','responsive'].includes(sizing))throw new Error('sizing must be snapshot or responsive.');
   const facts=extractFacts(snapshot);
+  const hiddenIds=new Set(facts.nodes.filter(n=>n.effectiveVisible===false).map(n=>n.id));
   if (!template.meta || typeof template.meta !== 'object' || !Array.isArray(template.body) || template.body.length) {
     throw new Error('Template must have a meta object and an empty body array. It is a screen-layout template, not a per-component spec.');
   }
@@ -59,6 +60,7 @@ export function compile(snapshot, { mapping = { version: 1, entries: [] }, templ
 
   function assetFor(n) {
     if(assets[n.id])return assets[n.id];
+    if(hiddenIds.has(n.id))return null; // Hidden source remains in facts, but needs no visible asset.
     add('ASSET_NOT_EXPORTED',n,'No local asset is available. Run a live export or supply --asset-manifest.');return null;
   }
   function visit(n, parent, parentVisible = true, index = 0) {
@@ -81,7 +83,6 @@ export function compile(snapshot, { mapping = { version: 1, entries: [] }, templ
     if (d?.source === 'absoluteBoundingBox') add('BOUNDS_SIZE_FALLBACK',n,'Only absolute bounds available; rotated local dimensions may be unavailable.');
     if (n.scrollBehavior && n.scrollBehavior !== 'SCROLLS') add('SCROLL_BEHAVIOR_RECORDED',n,'Fixed/sticky behavior is preserved in measurements, not inferred as pinned top/bottom in YAML.');
     if (n.isMask) add('MASK_NOT_COMPILED',n,'Mask geometry is retained in raw data; screen layout is not a visual reproduction.');
-    if (n.itemReverseZIndex) add('REVERSE_Z_ORDER',n,'Reverse Auto Layout paint order is recorded, but not compiled into z-index.');
 
     const style = { boxSizing:'border-box' };
     if (d) { style.width=px(d.width); style.height=px(d.height); }
@@ -95,6 +96,8 @@ export function compile(snapshot, { mapping = { version: 1, entries: [] }, templ
     const autoParent = parent && ['HORIZONTAL','VERTICAL','GRID'].includes(parent.layoutMode);
     const absolute = parent && (!autoParent || n.layoutPositioning === 'ABSOLUTE');
     style.position = absolute ? 'absolute' : 'relative';
+    if(n.itemReverseZIndex)style.isolation='isolate';
+    if(parent?.itemReverseZIndex)style.zIndex=parent.children.length-index;
     if (absolute) {
       if (t) { style.left=px(t[0][2]); style.top=px(t[1][2]); }
       else add('POSITION_NOT_COMPILED',n,'Missing local transform; absolute position cannot be emitted.');
@@ -124,7 +127,15 @@ export function compile(snapshot, { mapping = { version: 1, entries: [] }, templ
     if (n.type === 'INSTANCE') add('UNMAPPED_COMPONENT',n,'No reviewed identity mapping. Keeping this instance as a container and traversing its children; not guessing library identity.');
     const layout = {};
     if (['HORIZONTAL','VERTICAL','GRID'].includes(mode)) {
-      const padding=['paddingTop','paddingRight','paddingBottom','paddingLeft'].map(k=>n[k]);
+      // REST omits documented zero defaults. Bare plugin/node exports remain unknown.
+      // https://developers.figma.com/docs/rest-api/file-node-types/#frame
+      const defaulted={};
+      const layoutNumber=k=>{
+        if(own(n,k))return n[k];
+        if(snapshot.rest){defaulted[k]=0;return 0;}
+        return undefined;
+      };
+      const padding=['paddingTop','paddingRight','paddingBottom','paddingLeft'].map(layoutNumber);
       if (padding.every(finite)) layout.padding=padding;
       else {
         add('MISSING_PADDING',n,'Not all four authored padding values are present; no complete padding array invented.');
@@ -139,8 +150,9 @@ export function compile(snapshot, { mapping = { version: 1, entries: [] }, templ
         if (finite(n.gridRowGap)) style.rowGap=px(n.gridRowGap);
       } else {
         layout.direction=mode==='HORIZONTAL'?'horizontal':'vertical';
-        if (finite(n.itemSpacing)) {
-          if(n.itemSpacing>=0) layout.gap=n.itemSpacing;
+        const gap=layoutNumber('itemSpacing');
+        if (finite(gap)) {
+          if(gap>=0) layout.gap=gap;
           else if(n.layoutWrap==='WRAP')add('NEGATIVE_GAP',n,'Wrapped negative gap retained in facts; not safely expressible with a simple margin rule.');
           else layout.gap=0;
         } else add('MISSING_GAP',n,'Authored gap is missing; omitted.');
@@ -153,6 +165,7 @@ export function compile(snapshot, { mapping = { version: 1, entries: [] }, templ
           if(n.counterAxisAlignContent==='SPACE_BETWEEN') style.alignContent='space-between';
         }
       }
+      if(Object.keys(defaulted).length)record.apiDefaults=defaulted;
     } else if (mode && mode !== 'NONE') add('UNSUPPORTED_LAYOUT_MODE',n,`Layout mode ${mode} retained only in raw data.`);
     if (Object.keys(layout).length) box.layout=layout;
     if (n.type === 'TEXT') {

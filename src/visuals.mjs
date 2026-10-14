@@ -6,6 +6,23 @@ export function color(c, opacity = 1) {
   if (!c || ![c.r,c.g,c.b].every(num)) return undefined;
   return `rgba(${[c.r,c.g,c.b].map(v=>Math.round(v*255)).join(', ')}, ${(c.a ?? 1)*opacity})`;
 }
+// Axis-aligned linear gradients have an exact CSS translation. Other gradient
+// transforms remain explicit diagnostics rather than an approximate angle guess.
+export function linearGradient(p) {
+  if(p.type!=='GRADIENT_LINEAR' || !Array.isArray(p.gradientHandlePositions) || p.gradientHandlePositions.length<2 || !Array.isArray(p.gradientStops) || !p.gradientStops.length)return null;
+  if(p.gradientStops.some(s=>!num(s.position) || !s.color || ![s.color.r,s.color.g,s.color.b].every(num)))return null;
+  const [a,b]=p.gradientHandlePositions;
+  if(![a?.x,a?.y,b?.x,b?.y].every(num))return null;
+  let axis,angle,positive;
+  if(Math.abs(a.x-b.x)<1e-12 && Math.abs(a.y-b.y)>1e-12){axis='y';positive=b.y>a.y;angle=positive?180:0;}
+  else if(Math.abs(a.y-b.y)<1e-12 && Math.abs(a.x-b.x)>1e-12){axis='x';positive=b.x>a.x;angle=positive?90:270;}
+  else return null;
+  const stops=p.gradientStops.map(s=>{
+    const position=a[axis]+(b[axis]-a[axis])*s.position;
+    return `${color(s.color,p.opacity ?? 1)} ${(positive?position:1-position)*100}%`;
+  });
+  return `linear-gradient(${angle}deg, ${stops.join(', ')})`;
+}
 export function textStyle(s = {}, fills = []) {
   const out = {};
   for (const k of ['fontFamily','fontWeight','fontSize']) if (s[k] !== undefined) out[k]=k==='fontSize'?px(s[k]):s[k];
@@ -42,11 +59,13 @@ export function textRuns(n) {
 }
 export function visualStyle(n,add) {
   const out={};const paints=(n.fills || []).filter(p=>p.visible!==false);
+  const gradient=n.type!=='TEXT' && paints.length===1?linearGradient(paints[0]):null;
   if(n.type==='TEXT') {
     Object.assign(out,textStyle(n.style || n,n.fills),{whiteSpace:'pre-wrap'});
     if(n.style?.textAlignVertical && n.style.textAlignVertical!=='TOP')add('TEXT_VERTICAL_ALIGNMENT',n,'Vertical text alignment is retained in facts; baseline parity requires renderer verification.');
   } else if(paints.length===1 && paints[0].type==='SOLID')out.backgroundColor=color(paints[0].color,paints[0].opacity ?? 1);
-  if(paints.some(p=>!['SOLID','IMAGE'].includes(p.type)) || paints.length>1)add('COMPLEX_PAINT',n,'Multiple/gradient paints retained in facts; use a rendered asset when exact paint composition is required.');
+  if(gradient)out.backgroundImage=gradient;
+  if(!gradient && (paints.some(p=>!['SOLID','IMAGE'].includes(p.type)) || paints.length>1))add('COMPLEX_PAINT',n,'Multiple/unsupported gradient paints retained in facts; use a rendered asset when exact paint composition is required.');
   const strokes=(n.strokes || []).filter(p=>p.visible!==false);
   if(strokes.length===1 && strokes[0].type==='SOLID' && num(n.strokeWeight)) {
     const c=color(strokes[0].color,strokes[0].opacity ?? 1);

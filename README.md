@@ -4,7 +4,7 @@ A local, deterministic **Figma REST API** exporter. No MCP server or AI model is
 
 Give it a screen link. Get the complete selected layer data, a structured screen YAML draft, local assets, and explicit diagnostics. Component internals are **inspected**, but not emitted as duplicate layout boxes when a reviewed component mapping exists.
 
-**Status: v0.2.0, experimental.** Automated fixtures and mocked network tests pass; live Figma export and compatibility with your particular renderer still need local verification. The included schema is an interchange contract, **not an official Bento or Figma schema**. This is not a universal one-click app generator.
+**Status: v0.2.1, experimental.** Automated fixtures and mocked network tests pass. One private live screen has been exported and source-audited; compatibility with your particular renderer and visual parity still need verification. The included schema is an interchange contract, **not an official Bento or Figma schema**. This is not a universal one-click app generator.
 
 ## Run the demo
 
@@ -30,6 +30,8 @@ npm run export-screen -- "YOUR_FIGMA_SCREEN_URL" --out exports/first --reference
 ```
 
 The initial export works **without a component registry**: unknown instances become generic containers and are flagged. All available source properties and descendant content remain in `facts.json` and `raw.figma.json`. To produce your library's component names and slots, review mappings as described below.
+
+Progress appears in the terminal: current stage, elapsed seconds, asset counts, and retry delays. Network waits produce a heartbeat after 10 seconds without a stage change. Each request has a 60-second timeout, not the whole export; a screen with hundreds of assets can take several minutes. `--no-assets` skips rendering/downloads for a data-only first pass. Ctrl+C cancels without editing Figma.
 
 | Output | Purpose |
 | --- | --- |
@@ -87,6 +89,16 @@ The additional schema must be self-contained with local `$ref` definitions; remo
 Exit 0 = export completed, **not** visual correctness. Exit 1 = invalid configuration, fetch failure, schema failure or existing output directory. Exit 2 = strict-mode review items.
 
 ## What improved in v0.2
+
+### v0.2.1 live-export fixes
+
+- Default terminal progress, network-wait heartbeats, and explicit retry reporting.
+- Documented REST zero defaults for omitted padding/gaps, recorded separately as `apiDefaults` in measurements. Bare/incomplete node exports still report unknown values. See [Figma's node documentation](https://developers.figma.com/docs/rest-api/file-node-types/#frame).
+- Hidden layers no longer request missing visible assets; source data remains preserved.
+- Axis-aligned linear gradients and reversed child paint order are compiled explicitly.
+- Tests isolate missing-credential cases from a developer's local `.env`.
+
+### v0.2.0
 
 - Separate full-fidelity source preservation from component compilation.
 - Explicit nested slot and content selectors; ambiguous matches are diagnosed.
