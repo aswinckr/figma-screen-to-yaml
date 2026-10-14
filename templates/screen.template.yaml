@@ -1,0 +1,7 @@
+# Screen-layout template, based on the supplied screen.yaml's meta/body grammar.
+# meta.title, size, figmaFileKey and figmaNodeId are populated from source data.
+# body is generated, not interpolated as text. Use mapping entries for component aliases.
+meta:
+  title: Screen
+  library: example-library
+body: []

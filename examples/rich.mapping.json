@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "match": {
+        "componentKey": "synthetic-product-key"
+      },
+      "target": "product",
+      "contentReviewed": true,
+      "contentRules": [
+        {
+          "selector": {
+            "property": "Title#4"
+          },
+          "to": "text"
+        }
+      ],
+      "slotRules": {
+        "price": {
+          "selector": {
+            "componentKey": "synthetic-price-key"
+          },
+          "kind": "component"
+        },
+        "photo": {
+          "selector": {
+            "name": "Photo"
+          },
+          "kind": "image",
+          "alt": "Synthetic illustration"
+        }
+      }
+    },
+    {
+      "match": {
+        "componentKey": "synthetic-price-key"
+      },
+      "target": "price",
+      "propertyRules": [
+        {
+          "from": "Amount",
+          "to": "props.value"
+        }
+      ]
+    }
+  ]
+}

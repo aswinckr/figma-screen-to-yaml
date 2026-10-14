@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "match": {
+        "componentKey": "demo-button-key"
+      },
+      "target": "button-small",
+      "preset": "button-small",
+      "props": {
+        "fullWidth": false,
+        "startContent": null
+      },
+      "propertyRules": [
+        {
+          "from": "Label#11:0",
+          "to": "text"
+        },
+        {
+          "from": "Disabled#11:1",
+          "to": "props.disabled"
+        }
+      ],
+      "contentReviewed": true
+    }
+  ]
+}

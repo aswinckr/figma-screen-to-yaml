@@ -1,0 +1,245 @@
+{
+  "_exportSource": {
+    "fileKey": "DEMOFILE",
+    "nodeId": "1:1",
+    "version": "demo-1"
+  },
+  "version": "demo-1",
+  "nodes": {
+    "1:1": {
+      "document": {
+        "id": "1:1",
+        "name": "Layout demo",
+        "type": "FRAME",
+        "size": {
+          "x": 375,
+          "y": 600
+        },
+        "relativeTransform": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "visible": true,
+        "layoutMode": "VERTICAL",
+        "paddingTop": 16,
+        "paddingRight": 16,
+        "paddingBottom": 16,
+        "paddingLeft": 16,
+        "itemSpacing": 12,
+        "primaryAxisAlignItems": "MIN",
+        "counterAxisAlignItems": "CENTER",
+        "clipsContent": false,
+        "children": [
+          {
+            "id": "2:1",
+            "name": "Renamed by designer",
+            "type": "INSTANCE",
+            "size": {
+              "x": 343,
+              "y": 48
+            },
+            "relativeTransform": [
+              [
+                1,
+                0,
+                16
+              ],
+              [
+                0,
+                1,
+                16
+              ]
+            ],
+            "visible": true,
+            "layoutMode": "VERTICAL",
+            "paddingTop": 16,
+            "paddingRight": 16,
+            "paddingBottom": 16,
+            "paddingLeft": 99,
+            "itemSpacing": 99,
+            "primaryAxisAlignItems": "MIN",
+            "counterAxisAlignItems": "CENTER",
+            "clipsContent": false,
+            "children": [
+              {
+                "id": "2:2",
+                "name": "Frame 2:2",
+                "type": "TEXT",
+                "size": {
+                  "x": 100,
+                  "y": 20
+                },
+                "relativeTransform": [
+                  [
+                    1,
+                    0,
+                    0
+                  ],
+                  [
+                    0,
+                    1,
+                    0
+                  ]
+                ],
+                "visible": true,
+                "layoutMode": "VERTICAL",
+                "paddingTop": 16,
+                "paddingRight": 16,
+                "paddingBottom": 16,
+                "paddingLeft": 16,
+                "itemSpacing": 12,
+                "primaryAxisAlignItems": "MIN",
+                "counterAxisAlignItems": "CENTER",
+                "clipsContent": false,
+                "children": [],
+                "characters": "Internal label"
+              }
+            ],
+            "componentId": "10:1",
+            "componentProperties": {
+              "Label#11:0": {
+                "type": "TEXT",
+                "value": "Pay: \"now\"\nNext line"
+              },
+              "Disabled#11:1": {
+                "type": "BOOLEAN",
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "3:1",
+            "name": "Content section",
+            "type": "FRAME",
+            "size": {
+              "x": 343,
+              "y": 240
+            },
+            "relativeTransform": [
+              [
+                1,
+                0,
+                16
+              ],
+              [
+                0,
+                1,
+                76
+              ]
+            ],
+            "visible": true,
+            "layoutMode": "VERTICAL",
+            "paddingTop": 12,
+            "paddingRight": 12,
+            "paddingBottom": 12,
+            "paddingLeft": 12,
+            "itemSpacing": 8,
+            "primaryAxisAlignItems": "MIN",
+            "counterAxisAlignItems": "CENTER",
+            "clipsContent": false,
+            "children": [
+              {
+                "id": "3:2",
+                "name": "Heading",
+                "type": "TEXT",
+                "size": {
+                  "x": 200,
+                  "y": 24
+                },
+                "relativeTransform": [
+                  [
+                    1,
+                    0,
+                    12
+                  ],
+                  [
+                    0,
+                    1,
+                    12
+                  ]
+                ],
+                "visible": true,
+                "layoutMode": "NONE",
+                "paddingTop": 16,
+                "paddingRight": 16,
+                "paddingBottom": 16,
+                "paddingLeft": 16,
+                "itemSpacing": 12,
+                "primaryAxisAlignItems": "MIN",
+                "counterAxisAlignItems": "CENTER",
+                "clipsContent": false,
+                "children": [],
+                "characters": "Special offers"
+              },
+              {
+                "id": "3:3",
+                "name": "Renamed by designer",
+                "type": "INSTANCE",
+                "size": {
+                  "x": 319,
+                  "y": 48
+                },
+                "relativeTransform": [
+                  [
+                    1,
+                    0,
+                    12
+                  ],
+                  [
+                    0,
+                    1,
+                    44
+                  ]
+                ],
+                "visible": true,
+                "layoutMode": "VERTICAL",
+                "paddingTop": 16,
+                "paddingRight": 16,
+                "paddingBottom": 16,
+                "paddingLeft": 99,
+                "itemSpacing": 99,
+                "primaryAxisAlignItems": "MIN",
+                "counterAxisAlignItems": "CENTER",
+                "clipsContent": false,
+                "children": [],
+                "componentId": "10:1",
+                "componentProperties": {
+                  "Label#11:0": {
+                    "type": "TEXT",
+                    "value": "Pay: \"now\"\nNext line"
+                  },
+                  "Disabled#11:1": {
+                    "type": "BOOLEAN",
+                    "value": false
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "components": {
+        "10:1": {
+          "key": "demo-button-key",
+          "name": "Size=Small, Style=Text",
+          "componentSetId": "10:0",
+          "remote": true
+        }
+      },
+      "componentSets": {
+        "10:0": {
+          "key": "demo-button-set-key",
+          "name": "Button"
+        }
+      }
+    }
+  }
+}

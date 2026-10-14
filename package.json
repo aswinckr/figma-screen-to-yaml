@@ -1,0 +1,21 @@
+{
+  "name": "figma-screen-to-yaml",
+  "version": "0.2.0",
+  "type": "module",
+  "description": "Deterministic Figma REST extraction with structured screen YAML, component slots, and assets",
+  "engines": {
+    "node": ">=20.12"
+  },
+  "scripts": {
+    "export-screen": "node src/cli.mjs export",
+    "discover": "node src/cli.mjs discover",
+    "validate": "node src/cli.mjs validate",
+    "demo": "node src/cli.mjs export --input examples/rich.figma.json --mapping examples/rich.mapping.json --asset-manifest examples/assets.json --out exports/demo",
+    "test": "node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "ajv": "8.20.0",
+    "yaml": "2.9.1"
+  },
+  "license": "MIT"
+}
