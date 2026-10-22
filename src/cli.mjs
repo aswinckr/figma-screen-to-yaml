@@ -9,6 +9,7 @@ import {selectSnapshot,discover,walk} from './input.mjs';
 import {compile,canonical,digest} from './exporter.mjs';
 import {collectAssets,loadLocalAssets} from './assets.mjs';
 import {validateExternal,validateScreen} from './validation.mjs';
+import {getVariables, hasSpacingBindings, normalizeVariables} from './variables.mjs';
 
 import {createProgress} from './progress.mjs';
 const progress=createProgress();
@@ -35,6 +36,9 @@ Options:
   --no-assets       Skip live PNG asset downloads (diagnose missing assets)
   --asset-manifest PATH  Offline node-ID → image-path JSON (paths relative to manifest)
   --reference       Also download a reference PNG for the entire frame
+  --profile MODE    render (default, compatible) or spacing (compact audit YAML)
+  --variables PATH  Saved Figma local-variables response for spacing token names
+  --tokens MODE     auto (default) or off; auto resolves live spacing bindings
   --sizing MODE     snapshot (default) or responsive (explicit HUG/FILL rules)
   --schema PATH     Additionally validate against your renderer's JSON Schema
   --strict          Write diagnostics but exit 2 if review is needed
@@ -65,17 +69,24 @@ async function main() {
   const {values:opts,positionals}=parseArgs({allowPositionals:true,options:{
     input:{type:'string'},mapping:{type:'string'},template:{type:'string'},'node-id':{type:'string'},
     'file-key':{type:'string'},version:{type:'string'},out:{type:'string'},'no-assets':{type:'boolean'},'asset-manifest':{type:'string'},reference:{type:'boolean'},sizing:{type:'string'},schema:{type:'string'},strict:{type:'boolean'},help:{type:'boolean'},
+    profile:{type:'string'},variables:{type:'string'},tokens:{type:'string'},
   }});
   const [command,argument,...extra]=positionals;
   if(opts.help || !command){console.log(help);return;}
   if(extra.length)throw new Error('Unexpected arguments. Quote the complete Figma URL.');
   if(command==='validate') {
     if(!argument)throw new Error('Supply a screen.yaml path.');
-    const screen=YAML.parse(await readFile(argument,'utf8'));validateScreen(screen);if(opts.schema)validateExternal(screen,await json(opts.schema));console.log('Valid screen interchange YAML (v2; optional external schema checked when supplied).');return;
+    const screen=YAML.parse(await readFile(argument,'utf8'));validateScreen(screen);if(opts.schema)validateExternal(screen,await json(opts.schema));console.log(screen.meta?.profile==='spacing'?'Valid spacing audit YAML (v1).':'Valid screen interchange YAML (v2; optional external schema checked when supplied).');return;
   }
   if(!['export','discover'].includes(command))throw new Error('Unknown command. Use --help.');
   if(opts.input && argument)throw new Error('Use a Figma URL OR --input, not both.');
   if(!opts.input && !argument)throw new Error('Supply a Figma URL or --input JSON.');
+  const profile=opts.profile || 'render', tokenMode=opts.tokens || 'auto';
+  if(!['render','spacing'].includes(profile))throw new Error('--profile must be render or spacing.');
+  if(!['auto','off'].includes(tokenMode))throw new Error('--tokens must be auto or off.');
+  if(profile==='spacing' && opts.sizing && opts.sizing!=='snapshot')throw new Error('Spacing audits require --sizing snapshot.');
+  if(opts.variables && profile!=='spacing')throw new Error('--variables requires --profile spacing.');
+  if(opts.variables && tokenMode==='off')throw new Error('Use --variables or --tokens off, not both.');
   const out=path.resolve(opts.out||`exports/${command==='export'?'screen':'discovery'}`);
   try {await access(out);throw new Error(`Output already exists: ${out}. Use a new --out directory.`);} catch(e){if(e.code!=='ENOENT')throw e;}
   onProgress('Starting export');
@@ -101,34 +112,67 @@ async function main() {
   if(command==='export') {
     const mapping=await json(opts.mapping||path.join(project,'config/components.json'));
     const template=YAML.parse(await readFile(opts.template||path.join(project,'templates/screen.template.yaml'),'utf8'));
+    let variables=null,variableSource=null;
+    const variableDiagnostics=[];
+    if(profile==='spacing') {
+      if(opts.variables) {
+        const saved=await json(opts.variables);
+        if(saved.source?.fileKey && snapshot.fileKey && saved.source.fileKey!==snapshot.fileKey)throw new Error('Variable catalog belongs to a different Figma file.');
+        variables=normalizeVariables(saved);
+        variableSource=saved.source || {kind:'supplied-catalog',fileKey:snapshot.fileKey};
+      } else if(tokenMode==='auto' && !opts.input && hasSpacingBindings(snapshot)) {
+        try {
+          variables=await getVariables(snapshot.fileKey,{token:process.env.FIGMA_TOKEN,onProgress});
+          // The variables endpoint cannot be version-pinned, unlike the frame.
+          variableSource={kind:'current-api',fileKey:snapshot.fileKey,versionPinned:false};
+        } catch(error) {
+          variableDiagnostics.push({severity:'warning',code:'VARIABLES_UNAVAILABLE',nodeId:snapshot.document.id,message:error.message});
+          onProgress('Variable names unavailable; retaining numeric spacing and binding IDs');
+        }
+      }
+    }
     let assetBundle={entries:{},files:{},diagnostics:[]};
     if(opts['asset-manifest']){onProgress('Loading local assets');assetBundle=await loadLocalAssets(opts['asset-manifest']);}
-    else if(!opts.input && !opts['no-assets']) {
+    else if(!opts.input && (opts.reference || (profile==='render' && !opts['no-assets']))) {
       onProgress('Planning required assets');
-      const preview=compile(snapshot,{mapping,template,sizing:opts.sizing || 'snapshot'});
-      const nodeIds=preview.diagnostics.items.filter(d=>d.code==='ASSET_NOT_EXPORTED').map(d=>d.nodeId);
+      const preview=profile==='render' && !opts['no-assets'] ? compile(snapshot,{mapping,template,sizing:opts.sizing || 'snapshot'}) : null;
+      const nodeIds=preview ? preview.diagnostics.items.filter(d=>d.code==='ASSET_NOT_EXPORTED').map(d=>d.nodeId) : [];
       assetBundle=await collectAssets(snapshot,{token:process.env.FIGMA_TOKEN,reference:opts.reference,nodeIds,onProgress});
     }
     onProgress('Compiling screen YAML and source facts');
-    result=compile(snapshot,{mapping,template,assets:assetBundle.entries,sizing:opts.sizing || 'snapshot'});
-    result.diagnostics.items.push(...assetBundle.diagnostics);
+    result=compile(snapshot,{mapping,template,assets:assetBundle.entries,sizing:opts.sizing || 'snapshot',profile,variables});
+    if(opts.reference) {
+      const entry=assetBundle.entries[snapshot.document.id];
+      const bytes=entry && assetBundle.files[entry.path];
+      if(bytes?.subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10])))files['reference.png']=bytes;
+      else assetBundle.diagnostics.push({severity:'warning',code:'REFERENCE_NOT_EXPORTED',nodeId:snapshot.document.id,
+        message:'Requested frame PNG is missing. Retry a live export, or supply an asset manifest containing the frame PNG for offline replay.'});
+    }
+    result.diagnostics.items.push(...assetBundle.diagnostics,...variableDiagnostics);
     result.diagnostics.summary.counts={};
     for(const d of result.diagnostics.items)result.diagnostics.summary.counts[d.code]=(result.diagnostics.summary.counts[d.code] || 0)+1;
     result.diagnostics.status=result.diagnostics.items.length?'needs-review':'exported';
     Object.assign(files,assetBundle.files);
     files['assets.json']=jsonText({version:1,entries:assetBundle.entries});
-    if(opts.reference && assetBundle.entries[snapshot.document.id])files['reference.png']=assetBundle.files[assetBundle.entries[snapshot.document.id].path];
+    if(variables)files['variables.json']=jsonText({source:variableSource,meta:variables});
     files['facts.json']=jsonText(result.facts);
     onProgress('Validating and serializing output');
     if(opts.schema)validateExternal(result.screen,await json(opts.schema));
     validateScreen(result.screen);
-    files['screen.yaml']='# Generated screen draft (interchange schema v2). See measurements.json and diagnostics.json for provenance and limits.\n'+YAML.stringify(result.screen,{lineWidth:0,aliasDuplicateObjects:false});
+    const serializedScreen=profile==='spacing'?{meta:canonical(result.screen.meta),body:canonical(result.screen.body)}:result.screen;
+    files['screen.yaml']=(profile==='spacing'?'# Spacing audit snapshot v1. Geometry comes from YAML; measurements.json is a cross-check. See docs/SPACING-AUDIT.md.\n':'# Generated screen draft (interchange schema v2). See measurements.json and diagnostics.json for provenance and limits.\n')+YAML.stringify(serializedScreen,{lineWidth:0,aliasDuplicateObjects:false});
     // Reparse to catch serialization issues with literal colons, false, null, newlines, etc.
     validateScreen(YAML.parse(files['screen.yaml']));
     files['measurements.json']=jsonText(result.measurements);
-    files['measurements.yaml']=YAML.stringify(result.measurements,{lineWidth:0,aliasDuplicateObjects:false});
+    files['measurements.yaml']=YAML.stringify(profile==='spacing'?canonical(result.measurements):result.measurements,{lineWidth:0,aliasDuplicateObjects:false});
     files['diagnostics.json']=jsonText(result.diagnostics);
-    files['manifest.json']=jsonText({exporterVersion:'0.2.2',sizing:opts.sizing || 'snapshot',assetsSha256:digest(assetBundle.entries),inputSha256:digest(raw),mappingSha256:digest(mapping),
+    if(profile==='spacing') {
+      result.diagnostics.summary.yamlBytes=Buffer.byteLength(files['screen.yaml']);
+      files['diagnostics.json']=jsonText(result.diagnostics);
+    }
+    files['manifest.json']=jsonText({exporterVersion:'0.3.0',profile,sizing:opts.sizing || 'snapshot',
+      ...(profile==='spacing'?{variablesSha256:variables?digest(variables):null,variableSource}:{}),
+      assetsSha256:digest(assetBundle.entries),inputSha256:digest(raw),mappingSha256:digest(mapping),
       templateSha256:digest(template),source:{fileKey:snapshot.fileKey,nodeId:snapshot.document.id,version:snapshot.version}});
   }
   // Stage a complete bundle, then publish it. Never overwrite existing output.
@@ -146,7 +190,8 @@ async function main() {
   if(result) {
     const s=result.diagnostics.summary;
     console.log(`${s.emittedNodes} layout nodes; ${s.recognizedComponents} mapped component boundaries; ${result.diagnostics.items.length} review items.`);
-    console.log('Read diagnostics.json and facts.json. Renderer compatibility and visual fidelity still need verification.');
+    if(profile==='spacing')console.log(`${s.hiddenNodesExcluded} hidden source nodes excluded; ${s.yamlBytes} YAML bytes. Read diagnostics.json before comparing.`);
+    else console.log('Read diagnostics.json and facts.json. Renderer compatibility and visual fidelity still need verification.');
     if(opts.strict && result.diagnostics.items.length)process.exitCode=2;
   } else console.log(`${candidates.entries.length} component identities found. Set target on reviewed entries and use this file with --mapping.`);
 }

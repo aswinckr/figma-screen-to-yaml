@@ -4,7 +4,17 @@ A local, deterministic **Figma REST API** exporter. No MCP server or AI model is
 
 Give it a screen link. Get the complete selected layer data, a structured screen YAML draft, local assets, and explicit diagnostics. Component internals are **inspected**, but not emitted as duplicate layout boxes when a reviewed component mapping exists.
 
-**Status: v0.2.2, experimental.** Automated fixtures and mocked network tests pass. One private live screen has been exported and source-audited; compatibility with your particular renderer and visual parity still need verification. The included schema is an interchange contract, **not an official Bento or Figma schema**. This is not a universal one-click app generator.
+**Status: v0.3.0, experimental.** Automated fixtures and mocked network tests pass. One private live screen has been exported and source-audited; compatibility with your particular renderer and visual parity still need verification. The included schema is an interchange contract, **not an official Bento or Figma schema**. This is not a universal one-click app generator.
+
+## Spacing QA export
+
+Use `--profile spacing --reference` for compact, visible-only audit YAML with node
+identity, component internals and spacing token bindings. The original render
+profile remains the default. See [spacing audit instructions](docs/SPACING-AUDIT.md).
+
+```sh
+npm run export-screen -- "YOUR_FIGMA_SCREEN_URL" --profile spacing --reference --out exports/spacing-review-1
+```
 
 ## Run the demo
 
@@ -31,7 +41,7 @@ npm run export-screen -- "YOUR_FIGMA_SCREEN_URL" --out exports/first --reference
 
 The initial export works **without a component registry**: unknown instances become generic containers and are flagged. All available source properties and descendant content remain in `facts.json` and `raw.figma.json`. To produce your library's component names and slots, review mappings as described below.
 
-Progress appears in the terminal: current stage, elapsed seconds, asset counts, and retry delays. Network waits produce a heartbeat after 10 seconds without a stage change. Each request has a 60-second timeout, not the whole export; a screen with hundreds of assets can take several minutes. `--no-assets` skips rendering/downloads for a data-only first pass. Ctrl+C cancels without editing Figma.
+Progress appears in the terminal: current stage, elapsed seconds, asset counts, and retry delays. Network waits produce a heartbeat after 10 seconds without a stage change. Each request has a 60-second timeout, not the whole export; a screen with hundreds of assets can take several minutes. `--no-assets` skips individual asset rendering/downloads; an explicit `--reference` still exports the frame. Ctrl+C cancels without editing Figma.
 
 | Output | Purpose |
 | --- | --- |
@@ -77,8 +87,11 @@ The additional schema must be self-contained with local `$ref` definitions; remo
 
 `npm run export-screen -- --help` lists all options.
 
-- `--no-assets`: skip live asset downloads; missing assets remain explicit diagnostics.
-- `--reference`: render the selected frame too (live export).
+- `--profile render|spacing`: compatible rendering draft (default) or compact spacing-audit snapshot.
+- `--variables PATH`: saved local-variables catalog for spacing token resolution.
+- `--tokens auto|off`: attempt live variable resolution for spacing bindings (default auto), or keep unresolved IDs.
+- `--no-assets`: skip individual asset downloads; an explicit `--reference` still works.
+- `--reference`: export the selected frame (live, or a frame PNG supplied through an offline asset manifest).
 - `--asset-manifest PATH`: reuse local assets offline; file paths must stay under the manifest's directory.
 - `--sizing snapshot|responsive`: measured sizes by default; optional explicit HUG/FILL conversion. Responsive inference is limited to authored flex layouts.
 - `--version ID`: select a live file version.

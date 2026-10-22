@@ -3,6 +3,8 @@ import {visualStyle,textRuns,resizingStyle} from './visuals.mjs';
 import {extractFacts} from './facts.mjs';
 import {applyNegativeGap} from './negative-gap.mjs';
 import {compileComponent} from './components.mjs';
+import {spacingStyle, auditSource} from './spacing.mjs';
+import {resolveSpacingTokens} from './variables.mjs';
 import { identity, findMapping, validateMapping, walk } from './input.mjs';
 
 const own = (o,k) => Object.hasOwn(o,k);
@@ -43,11 +45,16 @@ export function relativeBounds(n, parent) {
   return { x,y,width:Math.max(...points.map(p=>p[0]))-x,height:Math.max(...points.map(p=>p[1]))-y };
 }
 
-export function compile(snapshot, { mapping = { version: 1, entries: [] }, template = { meta: { library: 'example-library' }, body: [] }, assets = {}, sizing = 'snapshot' } = {}) {
+export function compile(snapshot, { mapping = { version: 1, entries: [] }, template = { meta: { library: 'example-library' }, body: [] }, assets = {}, sizing = 'snapshot', profile = 'render', variables = null } = {}) {
   validateMapping(mapping);
+  if (!['render', 'spacing'].includes(profile)) throw new Error('profile must be render or spacing.');
+  const audit = profile === 'spacing';
+  if (audit && sizing !== 'snapshot') throw new Error('Spacing audits require snapshot sizing.');
   if(!['snapshot','responsive'].includes(sizing))throw new Error('sizing must be snapshot or responsive.');
   const facts=extractFacts(snapshot);
   const hiddenIds=new Set(facts.nodes.filter(n=>n.effectiveVisible===false).map(n=>n.id));
+  const visibility = new Map(facts.nodes.map(n => [n.id, n.effectiveVisible]));
+  if (audit && hiddenIds.has(snapshot.document.id)) throw new Error('Selected frame is hidden. Select the visible screen state to audit.');
   if (!template.meta || typeof template.meta !== 'object' || !Array.isArray(template.body) || template.body.length) {
     throw new Error('Template must have a meta object and an empty body array. It is a screen-layout template, not a per-component spec.');
   }
@@ -63,11 +70,13 @@ export function compile(snapshot, { mapping = { version: 1, entries: [] }, templ
     if(hiddenIds.has(n.id))return null; // Hidden source remains in facts, but needs no visible asset.
     add('ASSET_NOT_EXPORTED',n,'No local asset is available. Run a live export or supply --asset-manifest.');return null;
   }
-  function visit(n, parent, parentVisible = true, index = 0) {
+  function visit(n, parent, parentVisible = true, index = 0, inheritedModes = {}) {
+    if (audit && hiddenIds.has(n.id)) return null;
     emitted++;
     const id = nodeId(n), d = dimensions(n), rel = parent ? relativeBounds(n,parent) : null;
     const t = parent ? transform(n,parent) : null;
-    const visible = parentVisible === false || n.visible === false ? false : snapshot.rest || n.visible === true ? parentVisible : null;
+    const visible = audit ? visibility.get(n.id) : parentVisible === false || n.visible === false ? false : snapshot.rest || n.visible === true ? parentVisible : null;
+    const modes = {...inheritedModes, ...n.resolvedVariableModes, ...n.explicitVariableModes};
     const mode = n.layoutMode ?? (snapshot.rest ? 'NONE' : null);
     const mapped = findMapping(n,snapshot,mapping);
     const pd = parent ? dimensions(parent) : null;
@@ -84,10 +93,10 @@ export function compile(snapshot, { mapping = { version: 1, entries: [] }, templ
     if (n.scrollBehavior && n.scrollBehavior !== 'SCROLLS') add('SCROLL_BEHAVIOR_RECORDED',n,'Fixed/sticky behavior is preserved in measurements, not inferred as pinned top/bottom in YAML.');
     if (n.isMask) add('MASK_NOT_COMPILED',n,'Mask geometry is retained in raw data; screen layout is not a visual reproduction.');
 
-    const style = { boxSizing:'border-box' };
+    const style = audit ? {} : { boxSizing:'border-box' };
     if (d) { style.width=px(d.width); style.height=px(d.height); }
     if (visible === false) style.display='none';
-    if (own(n,'opacity')) style.opacity=n.opacity;
+    if (!audit && own(n,'opacity')) style.opacity=n.opacity;
     if (n.clipsContent === true) style.overflow='hidden';
     if (n.layoutAlign === 'STRETCH') style.alignSelf='stretch';
     // Measured sizes are intentionally fixed: this exporter describes this screen snapshot,
@@ -95,9 +104,9 @@ export function compile(snapshot, { mapping = { version: 1, entries: [] }, templ
     if (parent && ['HORIZONTAL','VERTICAL'].includes(parent.layoutMode) && n.layoutPositioning !== 'ABSOLUTE') style.flexShrink=0;
     const autoParent = parent && ['HORIZONTAL','VERTICAL','GRID'].includes(parent.layoutMode);
     const absolute = parent && (!autoParent || n.layoutPositioning === 'ABSOLUTE');
-    style.position = absolute ? 'absolute' : 'relative';
-    if(n.itemReverseZIndex)style.isolation='isolate';
-    if(parent?.itemReverseZIndex)style.zIndex=parent.children.length-index;
+    if (!audit || absolute) style.position = absolute ? 'absolute' : 'relative';
+    if(!audit && n.itemReverseZIndex)style.isolation='isolate';
+    if(!audit && parent?.itemReverseZIndex)style.zIndex=parent.children.length-index;
     if (absolute) {
       if (t) { style.left=px(t[0][2]); style.top=px(t[1][2]); }
       else add('POSITION_NOT_COMPILED',n,'Missing local transform; absolute position cannot be emitted.');
@@ -114,8 +123,19 @@ export function compile(snapshot, { mapping = { version: 1, entries: [] }, templ
     }
     if(sizing==='responsive')resizingStyle(style,n,parent);
     const box = { id,style }, result = { box,children:[] };
+    if (audit) {
+      box.source = auditSource(n, parent, index, visible, identity(n, snapshot), mapped);
+      for (const key of ['minWidth', 'maxWidth', 'minHeight', 'maxHeight']) if (finite(n[key])) style[key] = px(n[key]);
+      const tokens = resolveSpacingTokens(n, variables, modes);
+      if (Object.keys(tokens).length) box.spacingTokens = tokens;
+      for (const [field, token] of Object.entries(tokens)) {
+        if (token.status !== 'resolved') add('SPACING_TOKEN_REVIEW', n, `${field}: ${token.reason || token.status}; keep the source numeric value.`);
+      }
+      if (visible === null) add('VISIBILITY_UNKNOWN', n, 'Visibility is unknown in this partial input; node retained, not silently removed.');
+      if (n.opacity === 0) add('TRANSPARENT_LAYOUT', n, 'Zero-opacity node retained: transparent does not mean absent from layout.');
+    }
 
-    if (mapped) {
+    if (mapped && !audit) {
       const diagnosticStart=diagnostics.length,readStart=componentReads.length;
       const component=compileComponent(n,mapped,{snapshot,mapping,add,assetFor,nodeId,onRead:read=>componentReads.push(read)});
       const failed=diagnostics.slice(diagnosticStart).some(d=>d.code!=='COMPONENT_CONTENT_REVIEW');
@@ -130,8 +150,8 @@ export function compile(snapshot, { mapping = { version: 1, entries: [] }, templ
         return result;
       }
     }
-    Object.assign(style,visualStyle(n,add));
-    if (n.type === 'INSTANCE') add('UNMAPPED_COMPONENT',n,'No reviewed identity mapping. Keeping this instance as a container and traversing its children; not guessing library identity.');
+    Object.assign(style,audit ? spacingStyle(n) : visualStyle(n,add));
+    if (!audit && n.type === 'INSTANCE') add('UNMAPPED_COMPONENT',n,'No reviewed identity mapping. Keeping this instance as a container and traversing its children; not guessing library identity.');
     const layout = {};
     if (['HORIZONTAL','VERTICAL','GRID'].includes(mode)) {
       // REST omits documented zero defaults. Bare plugin/node exports remain unknown.
@@ -177,7 +197,7 @@ export function compile(snapshot, { mapping = { version: 1, entries: [] }, templ
     if (Object.keys(layout).length) box.layout=layout;
     if (n.type === 'TEXT') {
       if (typeof n.characters==='string') {
-        const runs=textRuns(n);
+        const runs=audit ? [{text:n.characters}] : textRuns(n);
         if(runs.length<=1)result.children.push({text:n.characters,id:`${id}-text`});
         else for(const [i,run] of runs.entries()) {
           result.children.push({box:{id:`${id}-run-${i}`,style:{display:'inline',...run.style}},children:[{text:run.text,id:`${id}-text-${i}`}]});
@@ -186,7 +206,7 @@ export function compile(snapshot, { mapping = { version: 1, entries: [] }, templ
       } else add('MISSING_TEXT',n,'TEXT node has no characters. Layer name is not substituted for content.');
     }
     const paints=(n.fills || []).filter(p=>p.visible!==false && p.type==='IMAGE');
-    if (paints.length || ['VECTOR','BOOLEAN_OPERATION','ELLIPSE','STAR','POLYGON'].includes(n.type)) {
+    if (!audit && (paints.length || ['VECTOR','BOOLEAN_OPERATION','ELLIPSE','STAR','POLYGON'].includes(n.type))) {
       assetCandidates.push({figmaNodeId:n.id,type:n.type,imageRefs:paints.map(p=>p.imageRef||p.imageHash).filter(Boolean)});
       const asset=assetFor(n);
       if(asset) {
@@ -201,13 +221,14 @@ export function compile(snapshot, { mapping = { version: 1, entries: [] }, templ
         style.backgroundImage=`url("${asset.path}")`;style.backgroundSize='100% 100%';style.backgroundRepeat='no-repeat';
       }
     }
-    const rendered=(n.children || []).map((child,i)=>visit(child,n,visible,i));
+    const rendered=(n.children || []).map((child,i)=>visit(child,n,visible,i,modes));
     applyNegativeGap(rendered,n.children || [],n);
-    result.children.push(...rendered);
+    result.children.push(...rendered.filter(Boolean));
     return result;
   }
   const body=[visit(snapshot.document,null)];
-  const screen={...(template.behavior?{behavior:structuredClone(template.behavior)}:{}),meta:{...structuredClone(template.meta),title:snapshot.document.name || 'Screen',
+  const screen={...(!audit && template.behavior?{behavior:structuredClone(template.behavior)}:{}),meta:{...structuredClone(template.meta),title:snapshot.document.name || 'Screen',
+    ...(audit ? {profile:'spacing',schemaVersion:1,units:'Figma px'} : {}),
     ...(rootSize ? {size:`${rootSize.width} x ${rootSize.height}`} : {}),
     ...(snapshot.fileKey ? {figmaFileKey:snapshot.fileKey} : {}),figmaNodeId:snapshot.document.id},body};
   const gaps=[];
@@ -228,8 +249,9 @@ export function compile(snapshot, { mapping = { version: 1, entries: [] }, templ
     note:'Measured edge distances are signed, parent-local axis-aligned geometry, NOT authored padding. Sizes in YAML describe this snapshot, not responsive rules.',
     source:{fileKey:snapshot.fileKey,nodeId:snapshot.document.id,version:snapshot.version},nodes:measurements,siblingGaps:gaps,boundaries,assetCandidates,componentReads},
     diagnostics:{schemaVersion:1,status:diagnostics.length?'needs-review':'layout-exported',
-      scope:'Structured screen draft; renderer compatibility and live visual fidelity require verification.',
-      summary:{extractedNodes:facts.nodes.length,emittedNodes:emitted,recognizedComponents:boundaries.length,excludedComponentInternalNodes:excluded,counts},items:diagnostics} };
+      scope:audit ? 'Spacing audit snapshot; hidden subtrees excluded, component and image-container internals retained. Reference pixels are independent of measurement structure.' : 'Structured screen draft; renderer compatibility and live visual fidelity require verification.',
+      summary:{extractedNodes:facts.nodes.length,emittedNodes:emitted,recognizedComponents:boundaries.length,excludedComponentInternalNodes:excluded,
+        ...(audit ? {hiddenNodesExcluded:hiddenIds.size,visibilityUnknownNodes:measurements.filter(n=>n.effectiveVisible===null).length} : {}),counts},items:diagnostics} };
 }
 
 export function canonical(value) {

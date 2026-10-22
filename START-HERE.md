@@ -27,7 +27,22 @@ The terminal reports each stage, elapsed time, asset counts, and retry delays. D
 
 **First export:** unknown components appear as generic boxes. To get your component aliases and slots, review `components.discovered.json` using [docs/MAPPING.md](docs/MAPPING.md), then replay the saved data with your mappings. You do not need another API call for that step.
 
-## 3. Send useful feedback
+## 3. Export for spacing QA
+
+```sh
+npm run export-screen -- "PASTE_SCREEN_LINK" --profile spacing --reference --out exports/spacing-review-1
+```
+
+This excludes hidden subtrees, includes node names/IDs, and preserves component
+internal spacing. It downloads only the full-frame image. Numeric spacing works
+with your existing Figma access; resolving bound token names additionally needs
+`file_variables:read` and Variables API eligibility. Missing access is reported,
+not guessed. See [the audit guide](docs/SPACING-AUDIT.md).
+
+Send `screen.yaml`, `diagnostics.json` and `reference.png` for review, plus
+`measurements.json` for a geometry cross-check. Use a new output folder each time.
+
+## 4. Send useful feedback
 
 Which element differed? What should its YAML say? Include relevant diagnostic codes and a sanitized snippet. Never post your token or confidential design exports in the public repo.
 

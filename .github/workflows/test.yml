@@ -18,3 +18,5 @@ jobs:
       - run: npm test
       - run: npm run demo
       - run: npm run validate -- exports/demo/screen.yaml
+      - run: npm run export-screen -- --input examples/rich.figma.json --profile spacing --out exports/demo-spacing
+      - run: npm run validate -- exports/demo-spacing/screen.yaml
