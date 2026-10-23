@@ -2,9 +2,23 @@
 
 A local, deterministic **Figma REST API** exporter. No MCP server or AI model is required.
 
-Give it a screen link. Get the complete selected layer data, a structured screen YAML draft, local assets, and explicit diagnostics. Component internals are **inspected**, but not emitted as duplicate layout boxes when a reviewed component mapping exists.
+Give it a screen link. Get the complete selected layer data, a structured screen YAML draft, local assets, and explicit diagnostics. In the default render profile, component internals are **inspected** but mapped component boundaries can replace their YAML layout. The full QA profile retains every descendant.
 
-**Status: v0.3.0, experimental.** Automated fixtures and mocked network tests pass. One private live screen has been exported and source-audited; compatibility with your particular renderer and visual parity still need verification. The included schema is an interchange contract, **not an official Bento or Figma schema**. This is not a universal one-click app generator.
+**Status: v0.4.0, experimental.** Automated fixtures and mocked network tests pass. One private live screen has been exported and source-audited; compatibility with your particular renderer and visual parity still need verification. The included schema is an interchange contract, **not an official Bento or Figma schema**. This is not a universal one-click app generator.
+
+## Full design QA export (recommended for comparison)
+
+```sh
+npm run export-screen -- "YOUR_FIGMA_SCREEN_URL" --profile qa --reference --out exports/qa-review-1
+```
+
+Preserves every supplied source-node property: layout, typography and style names,
+component configurations, all variable bindings, icon identity/geometry, paints,
+strokes, corners, effects and authored accessibility annotations. Hidden-state
+evidence is retained separately. Flat records and shared dictionaries reduce
+repetition; the exporter verifies exact source-tree reconstruction before writing.
+Runtime accessibility and denied variable names remain explicit gaps, never passes.
+See [the full QA contract and reader API](docs/FULL-QA.md).
 
 ## Spacing QA export
 

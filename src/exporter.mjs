@@ -184,6 +184,8 @@ export function compile(snapshot, { mapping = { version: 1, entries: [] }, templ
           else layout.gap=0;
         } else add('MISSING_GAP',n,'Authored gap is missing; omitted.');
         const main=n.primaryAxisAlignItems ?? (snapshot.rest?'MIN':null), cross=n.counterAxisAlignItems ?? (snapshot.rest?'MIN':null);
+        // Figma ignores itemSpacing when distributing the main axis automatically.
+        if (main === 'SPACE_BETWEEN') layout.gap=0;
         if (align[main]) layout.justify=align[main]; else add('MISSING_MAIN_ALIGNMENT',n,'Main-axis alignment is unknown.');
         if (align[cross]) layout.align=align[cross]; else add('MISSING_CROSS_ALIGNMENT',n,'Cross-axis alignment is unknown.');
         if (n.layoutWrap==='WRAP') {

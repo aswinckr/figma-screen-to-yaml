@@ -1,5 +1,5 @@
 export function selectSnapshot(raw, requestedId) {
-  let document, components = {}, componentSets = {}, rest = false;
+  let document, components = {}, componentSets = {}, styles = {}, rest = false;
   const nodeId = requestedId || raw._exportSource?.nodeId;
   if (raw.nodes) {
     const ids = Object.keys(raw.nodes).filter(k => raw.nodes[k]?.document);
@@ -7,10 +7,10 @@ export function selectSnapshot(raw, requestedId) {
     if (!id) throw new Error('Snapshot contains multiple nodes: pass --node-id.');
     const entry = raw.nodes[id];
     if (!entry?.document) throw new Error(`Node ${id} is absent from this snapshot.`);
-    ({ document, components = {}, componentSets = {} } = entry);
+    ({ document, components = {}, componentSets = {}, styles = {} } = entry);
     rest = true;
   } else if (raw.document) {
-    ({ document, components = {}, componentSets = {} } = raw);
+    ({ document, components = {}, componentSets = {}, styles = {} } = raw);
     rest = true;
     if (nodeId && document.id !== nodeId) document = findNode(document, nodeId);
   } else if (raw.id && raw.type) {
@@ -25,7 +25,7 @@ export function selectSnapshot(raw, requestedId) {
     seen.add(node.id);
     if (node.children !== undefined && !Array.isArray(node.children)) throw new Error(`Invalid children on ${node.id}`);
   }
-  return { document, components, componentSets, rest,
+  return { document, components, componentSets, styles, rest,
     fileKey: raw._exportSource?.fileKey || null, version: raw.version || raw._exportSource?.version || null };
 }
 export function* walk(root) {

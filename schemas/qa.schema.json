@@ -1,0 +1,244 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "meta",
+    "catalogs",
+    "nodes",
+    "hiddenNodes",
+    "coverage"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profile",
+        "schemaVersion",
+        "figmaNodeId",
+        "title",
+        "units",
+        "sourceKind",
+        "figmaFileKey",
+        "figmaVersion"
+      ],
+      "properties": {
+        "profile": {
+          "const": "qa"
+        },
+        "schemaVersion": {
+          "const": 1
+        },
+        "figmaNodeId": {
+          "type": "string"
+        },
+        "figmaFileKey": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "figmaVersion": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "title": {
+          "type": "string"
+        },
+        "units": {
+          "const": "Figma px"
+        },
+        "sourceKind": {
+          "enum": [
+            "rest",
+            "partial-node"
+          ]
+        },
+        "variableCatalogSource": {
+          "type": [
+            "object",
+            "null"
+          ]
+        }
+      }
+    },
+    "catalogs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "values",
+        "tokenResolutions",
+        "identities",
+        "mappings",
+        "styles",
+        "components",
+        "componentSets",
+        "variables"
+      ],
+      "properties": {
+        "values": {
+          "type": "object"
+        },
+        "tokenResolutions": {
+          "type": "object"
+        },
+        "identities": {
+          "type": "object"
+        },
+        "mappings": {
+          "type": "object"
+        },
+        "styles": {
+          "type": "object"
+        },
+        "components": {
+          "type": "object"
+        },
+        "componentSets": {
+          "type": "object"
+        },
+        "variables": {
+          "type": [
+            "object",
+            "null"
+          ]
+        }
+      }
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/node"
+      }
+    },
+    "hiddenNodes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/node"
+      }
+    },
+    "coverage": {
+      "type": "object"
+    }
+  },
+  "definitions": {
+    "node": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "parentId",
+        "childIndex",
+        "effectiveVisible",
+        "childrenPresent",
+        "children",
+        "properties",
+        "propertyRefs"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "parentId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "childIndex": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "effectiveVisible": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "childrenPresent": {
+          "type": "boolean"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "properties": {
+          "type": "object"
+        },
+        "propertyRefs": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "component": {
+          "type": "string"
+        },
+        "mapping": {
+          "type": "string"
+        },
+        "effectiveLayout": {
+          "type": "object"
+        },
+        "tokens": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "path",
+              "resolution"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "resolution": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "styleBindings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "property",
+              "id",
+              "status"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "property": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "status": {
+                "enum": [
+                  "resolved",
+                  "unresolved"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

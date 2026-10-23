@@ -2,6 +2,7 @@
 // Narrowed to non-wrapping authored flow: only later in-flow siblings receive a
 // negative main-axis margin. Absolute and hidden nodes do not consume a gap.
 export function applyNegativeGap(children,nodes,parent) {
+  if(parent.primaryAxisAlignItems==='SPACE_BETWEEN')return;
   if(!(parent.itemSpacing<0) || parent.layoutWrap==='WRAP' || !['HORIZONTAL','VERTICAL'].includes(parent.layoutMode))return;
   const key=parent.layoutMode==='HORIZONTAL'?'marginLeft':'marginTop';let seen=false;
   nodes.forEach((n,i)=>{

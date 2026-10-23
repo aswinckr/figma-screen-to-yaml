@@ -27,7 +27,19 @@ The terminal reports each stage, elapsed time, asset counts, and retry delays. D
 
 **First export:** unknown components appear as generic boxes. To get your component aliases and slots, review `components.discovered.json` using [docs/MAPPING.md](docs/MAPPING.md), then replay the saved data with your mappings. You do not need another API call for that step.
 
-## 3. Export for spacing QA
+## 3. Export for full design QA
+
+```sh
+npm run export-screen -- "PASTE_SCREEN_LINK" --profile qa --reference --out exports/qa-review-1
+```
+
+Use this for the complete visual/component/accessibility-evidence audit. It retains
+all supplied source-node properties and hidden-state evidence, with names and
+shared catalogs. Send the complete output folder as a ZIP for review. See
+[the full QA guide](docs/FULL-QA.md) for token access, limits and the reader API.
+Do not include the project's `.env` file. No Android check is performed yet.
+
+## 4. Export only spacing QA
 
 ```sh
 npm run export-screen -- "PASTE_SCREEN_LINK" --profile spacing --reference --out exports/spacing-review-1
@@ -42,7 +54,7 @@ not guessed. See [the audit guide](docs/SPACING-AUDIT.md).
 Send `screen.yaml`, `diagnostics.json` and `reference.png` for review, plus
 `measurements.json` for a geometry cross-check. Use a new output folder each time.
 
-## 4. Send useful feedback
+## 5. Send useful feedback
 
 Which element differed? What should its YAML say? Include relevant diagnostic codes and a sanitized snippet. Never post your token or confidential design exports in the public repo.
 

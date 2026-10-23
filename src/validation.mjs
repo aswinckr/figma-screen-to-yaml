@@ -1,12 +1,36 @@
 import Ajv from 'ajv';
+import {restoreQATree,readQANode} from './qa.mjs';
+import {variableBindings} from './qa-tokens.mjs';
 import {readFile} from 'node:fs/promises';
 const schema=JSON.parse(await readFile(new URL('../schemas/screen.schema.json',import.meta.url),'utf8'));
 const validate=new Ajv({allErrors:true,strict:true,allowUnionTypes:true}).compile(schema);
 const spacingSchema=JSON.parse(await readFile(new URL('../schemas/spacing.schema.json',import.meta.url),'utf8'));
 const validateSpacing=new Ajv({allErrors:true,strict:true,allowUnionTypes:true}).compile(spacingSchema);
+const qaSchema=JSON.parse(await readFile(new URL('../schemas/qa.schema.json',import.meta.url),'utf8'));
+const validateQA=new Ajv({allErrors:true,strict:true,allowUnionTypes:true}).compile(qaSchema);
 export function validateScreen(screen) {
-  const check = screen.meta?.profile === 'spacing' ? validateSpacing : validate;
+  const check = screen.meta?.profile === 'qa' ? validateQA : screen.meta?.profile === 'spacing' ? validateSpacing : validate;
   if(!check(screen)) throw new Error(`YAML schema validation failed: ${JSON.stringify(check.errors.slice(0,8))}`);
+  if(screen.meta?.profile==='qa') {
+    const all=[...screen.nodes,...screen.hiddenNodes],byId=new Map(all.map(n=>[n.id,n]));
+    if(byId.get(screen.meta.figmaNodeId)?.parentId!==null)throw new Error('QA root parent must be null');
+    if(byId.size!==all.length)throw new Error('Duplicate QA node ID');
+    if(screen.nodes.some(n=>n.effectiveVisible===false)||screen.hiddenNodes.some(n=>n.effectiveVisible!==false))throw new Error('Invalid QA visibility partition');
+    for(const n of all){
+      for(const key of ['id','name','type','children'])if(Object.hasOwn(n.properties,key)||Object.hasOwn(n.propertyRefs,key))throw new Error('Reserved QA property');
+      if(Object.keys(n.propertyRefs).some(k=>Object.hasOwn(n.properties,k)))throw new Error('Duplicate inline and referenced QA property');
+      if(!n.childrenPresent&&n.children.length)throw new Error('QA children presence mismatch');
+      if(n.parentId===null&&n.id!==screen.meta.figmaNodeId)throw new Error('Multiple QA roots');
+      if(n.parentId!==null&&!byId.has(n.parentId))throw new Error('Missing QA parent');
+      n.children.forEach((id,i)=>{const child=byId.get(id);if(!child||child.parentId!==n.id||child.childIndex!==i)throw new Error('QA parent/order mismatch');});
+      for(const t of n.tokens||[])if(!Object.hasOwn(screen.catalogs.tokenResolutions,t.resolution))throw new Error('Missing QA token reference');
+      const bindings=variableBindings(readQANode(screen,n));
+      if(bindings.length!==(n.tokens||[]).length||bindings.some(b=>!(n.tokens||[]).some(t=>t.path===b.path&&screen.catalogs.tokenResolutions[t.resolution].bindingId===b.bindingId)))throw new Error('QA binding coverage mismatch');
+      for(const [key,pool]of [['component','identities'],['mapping','mappings']])if(n[key]&&!Object.hasOwn(screen.catalogs[pool],n[key]))throw new Error('Missing QA catalog reference');
+      for(const binding of n.styleBindings||[])if(binding.status==='resolved'&&!screen.catalogs.styles[binding.id]?.name)throw new Error('Missing QA style name');
+    }
+    restoreQATree(screen);return true;
+  }
   const ids=new Set();
   function visit(n) {
     if(!n || typeof n!=='object')return;

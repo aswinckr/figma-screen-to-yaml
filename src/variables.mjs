@@ -83,7 +83,7 @@ export async function getVariables(fileKey, {token, fetchImpl = fetch,
   sleep = ms => new Promise(resolve => setTimeout(resolve, ms)), onProgress = () => {}} = {}) {
   if (!token) throw new Error('Variable lookup needs FIGMA_TOKEN.');
   for (let attempt = 0; attempt < 3; attempt++) {
-    onProgress(`Reading spacing variables: attempt ${attempt + 1}/3`);
+    onProgress(`Reading Figma variables: attempt ${attempt + 1}/3`);
     let response;
     try {
       response = await fetchImpl(`https://api.figma.com/v1/files/${encodeURIComponent(fileKey)}/variables/local`, {
@@ -102,7 +102,13 @@ export async function getVariables(fileKey, {token, fetchImpl = fetch,
     }
     if (response.status >= 500 && attempt < 2) { await sleep(1000 * 2 ** attempt); continue; }
     if ([401, 403].includes(response.status)) {
-      throw new Error('Variable lookup denied: check file_variables:read, file access and Enterprise eligibility. Numeric spacing is still available.');
+      let detail='';
+      try { const body=await response.json(); detail=String(body.err || body.message || '').toLowerCase(); } catch {}
+      const cause=response.status===401?'authentication':
+        /scope/.test(detail)?'missing-scope':/enterprise|plan|seat/.test(detail)?'account-eligibility':
+        /file.*access|permission.*file/.test(detail)?'file-access':'undetermined';
+      const error=new Error(`Variable lookup denied (HTTP ${response.status}, ${cause}): check file_variables:read, file access and Enterprise eligibility. Source values are retained; no token names guessed.`);
+      error.details={httpStatus:response.status,cause};throw error;
     }
     if (!response.ok) throw new Error(`Variable lookup HTTP ${response.status}.`);
     let payload;
