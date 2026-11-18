@@ -1,0 +1,43 @@
+{
+  "items": [
+    {
+      "code": "QA_TOKEN_REVIEW",
+      "message": "86 distinct token resolutions need review. Preserve source values; resolution is not an implementation comparison.",
+      "nodeId": "7085:50608",
+      "severity": "warning"
+    },
+    {
+      "code": "QA_RUNTIME_EVIDENCE_REQUIRED",
+      "message": "Android accessibility, touch targets, font scaling and runtime component/token usage are not verified by a Figma export.",
+      "nodeId": "7085:50608",
+      "severity": "warning"
+    },
+    {
+      "access": {
+        "cause": "missing-scope",
+        "httpStatus": 403
+      },
+      "code": "VARIABLES_UNAVAILABLE",
+      "message": "Variable lookup denied (HTTP 403, missing-scope): check file_variables:read, file access and Enterprise eligibility. Source values are retained; no token names guessed.",
+      "nodeId": "7085:50608",
+      "severity": "warning"
+    }
+  ],
+  "schemaVersion": 1,
+  "scope": "Full QA evidence export. Source preservation is verified separately from comparison coverage.",
+  "status": "needs-review",
+  "summary": {
+    "counts": {
+      "QA_RUNTIME_EVIDENCE_REQUIRED": 1,
+      "QA_TOKEN_REVIEW": 1,
+      "VARIABLES_UNAVAILABLE": 1
+    },
+    "emittedNodes": 158,
+    "extractedNodes": 506,
+    "hiddenNodesRetained": 348,
+    "recognizedComponents": 59,
+    "sourcePropertyCount": 14210,
+    "unresolvedTokenResolutions": 86,
+    "yamlBytes": 1027129
+  }
+}

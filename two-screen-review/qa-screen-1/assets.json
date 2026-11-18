@@ -1,0 +1,13 @@
+{
+  "entries": {
+    "7085:50608": {
+      "bytes": 75812,
+      "format": "png",
+      "kind": "rendered-node",
+      "path": "assets/1ba120ac8099de3af28f619e669309d127f2dcab53d280f1767b32f6bd1efffa.png",
+      "sha256": "1ba120ac8099de3af28f619e669309d127f2dcab53d280f1767b32f6bd1efffa",
+      "sourceNodeId": "7085:50608"
+    }
+  },
+  "version": 1
+}

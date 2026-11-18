@@ -1,0 +1,16 @@
+{
+  "assetsSha256": "66d7b161aafbae3c51f52f3d1038a6d873b28f81ec57956cc8eb9f4747e46afc",
+  "exporterVersion": "0.4.0",
+  "inputSha256": "7043ac97508b843b88268e67d42c7e6f2c651c9a6d730855fe7018601e25571c",
+  "mappingSha256": "a6a20076da005b27c9afc3a5d5b2457798c0ac817d1abc38b2fee4398ac3f133",
+  "profile": "qa",
+  "sizing": "snapshot",
+  "source": {
+    "fileKey": "S78V5Kf1dCz0FVkHTKHP5r",
+    "nodeId": "1000:24948",
+    "version": "2413293027922807856"
+  },
+  "templateSha256": "3a1c5b3e0f9c5c607975571e15f3567d445ce71c8a57e935b5ecd6528584f70b",
+  "variableSource": null,
+  "variablesSha256": null
+}

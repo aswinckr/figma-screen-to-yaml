@@ -1,0 +1,195 @@
+{
+  "items": [
+    {
+      "code": "TRANSFORMED_FLOW_ITEM",
+      "message": "Transform preserved; CSS flow under rotation may differ from Figma. Compare before rendering use.",
+      "nodeId": "I1000:24948;2071:43105;32101:8596",
+      "severity": "warning"
+    },
+    {
+      "code": "TRANSFORMED_FLOW_ITEM",
+      "message": "Transform preserved; CSS flow under rotation may differ from Figma. Compare before rendering use.",
+      "nodeId": "I1000:24948;2071:43105;32101:8597",
+      "severity": "warning"
+    },
+    {
+      "code": "MASK_NOT_COMPILED",
+      "message": "Mask geometry is retained in raw data; screen layout is not a visual reproduction.",
+      "nodeId": "I1000:24948;2071:43107;39150:8847;39150:8862",
+      "severity": "warning"
+    },
+    {
+      "code": "TRANSFORMED_FLOW_ITEM",
+      "message": "Transform preserved; CSS flow under rotation may differ from Figma. Compare before rendering use.",
+      "nodeId": "I1000:24948;2071:43107;39150:8847;39150:8885",
+      "severity": "warning"
+    },
+    {
+      "code": "TRANSFORMED_FLOW_ITEM",
+      "message": "Transform preserved; CSS flow under rotation may differ from Figma. Compare before rendering use.",
+      "nodeId": "I1000:24948;2071:43107;39150:8847;39150:8886",
+      "severity": "warning"
+    },
+    {
+      "code": "TRANSFORMED_FLOW_ITEM",
+      "message": "Transform preserved; CSS flow under rotation may differ from Figma. Compare before rendering use.",
+      "nodeId": "I1000:24948;2071:43107;39150:8847;39150:8887",
+      "severity": "warning"
+    },
+    {
+      "code": "TRANSFORMED_FLOW_ITEM",
+      "message": "Transform preserved; CSS flow under rotation may differ from Figma. Compare before rendering use.",
+      "nodeId": "I1000:24948;2071:43107;39150:8847;39150:8890;6192:232304",
+      "severity": "warning"
+    },
+    {
+      "code": "TRANSFORMED_FLOW_ITEM",
+      "message": "Transform preserved; CSS flow under rotation may differ from Figma. Compare before rendering use.",
+      "nodeId": "I1000:24948;2071:43107;39150:8847;39150:8890;6192:232305",
+      "severity": "warning"
+    },
+    {
+      "code": "TRANSFORMED_FLOW_ITEM",
+      "message": "Transform preserved; CSS flow under rotation may differ from Figma. Compare before rendering use.",
+      "nodeId": "I1000:24948;2071:43107;39150:8847;39150:8890;6192:232306",
+      "severity": "warning"
+    },
+    {
+      "code": "TRANSFORMED_FLOW_ITEM",
+      "message": "Transform preserved; CSS flow under rotation may differ from Figma. Compare before rendering use.",
+      "nodeId": "I1000:24948;2071:43119;541:27377;29891:2250;541:24637;515:77173;28814:14629;28814:14112",
+      "severity": "warning"
+    },
+    {
+      "code": "TRANSFORMED_FLOW_ITEM",
+      "message": "Transform preserved; CSS flow under rotation may differ from Figma. Compare before rendering use.",
+      "nodeId": "I1000:24948;2071:43119;541:27377;29891:2250;541:24637;515:77173;28814:14629;28814:14113",
+      "severity": "warning"
+    },
+    {
+      "code": "TRANSFORMED_FLOW_ITEM",
+      "message": "Transform preserved; CSS flow under rotation may differ from Figma. Compare before rendering use.",
+      "nodeId": "I1000:24948;2071:43120;61370:207883",
+      "severity": "warning"
+    },
+    {
+      "code": "TRANSFORMED_FLOW_ITEM",
+      "message": "Transform preserved; CSS flow under rotation may differ from Figma. Compare before rendering use.",
+      "nodeId": "I1000:24948;2071:43132;61370:207883",
+      "severity": "warning"
+    },
+    {
+      "code": "TRANSFORMED_FLOW_ITEM",
+      "message": "Transform preserved; CSS flow under rotation may differ from Figma. Compare before rendering use.",
+      "nodeId": "I1000:24948;2071:43137;61419:171082;61378:431215",
+      "severity": "warning"
+    },
+    {
+      "code": "TRANSFORMED_FLOW_ITEM",
+      "message": "Transform preserved; CSS flow under rotation may differ from Figma. Compare before rendering use.",
+      "nodeId": "I1000:24948;2071:43138;61419:171082;61378:431215",
+      "severity": "warning"
+    },
+    {
+      "code": "TRANSFORMED_FLOW_ITEM",
+      "message": "Transform preserved; CSS flow under rotation may differ from Figma. Compare before rendering use.",
+      "nodeId": "I1000:24948;2071:43139;61419:171082;61378:431215",
+      "severity": "warning"
+    },
+    {
+      "code": "TRANSFORMED_FLOW_ITEM",
+      "message": "Transform preserved; CSS flow under rotation may differ from Figma. Compare before rendering use.",
+      "nodeId": "I1000:24948;2071:43140;61419:171082;61378:431215",
+      "severity": "warning"
+    },
+    {
+      "code": "TRANSFORMED_FLOW_ITEM",
+      "message": "Transform preserved; CSS flow under rotation may differ from Figma. Compare before rendering use.",
+      "nodeId": "I1000:24948;2071:43141;61419:171082;61378:431215",
+      "severity": "warning"
+    },
+    {
+      "code": "TRANSFORMED_FLOW_ITEM",
+      "message": "Transform preserved; CSS flow under rotation may differ from Figma. Compare before rendering use.",
+      "nodeId": "I1000:24948;2071:43143;61370:207883",
+      "severity": "warning"
+    },
+    {
+      "code": "TRANSFORMED_FLOW_ITEM",
+      "message": "Transform preserved; CSS flow under rotation may differ from Figma. Compare before rendering use.",
+      "nodeId": "I1000:24948;2071:43148;61419:171082;61378:431215",
+      "severity": "warning"
+    },
+    {
+      "code": "TRANSFORMED_FLOW_ITEM",
+      "message": "Transform preserved; CSS flow under rotation may differ from Figma. Compare before rendering use.",
+      "nodeId": "I1000:24948;2071:43149;61419:171082;61378:431215",
+      "severity": "warning"
+    },
+    {
+      "code": "TRANSFORMED_FLOW_ITEM",
+      "message": "Transform preserved; CSS flow under rotation may differ from Figma. Compare before rendering use.",
+      "nodeId": "I1000:24948;2071:43151;61370:207883",
+      "severity": "warning"
+    },
+    {
+      "code": "TRANSFORMED_FLOW_ITEM",
+      "message": "Transform preserved; CSS flow under rotation may differ from Figma. Compare before rendering use.",
+      "nodeId": "I1000:24948;2071:43156;61419:171082;61378:431215",
+      "severity": "warning"
+    },
+    {
+      "code": "TRANSFORMED_FLOW_ITEM",
+      "message": "Transform preserved; CSS flow under rotation may differ from Figma. Compare before rendering use.",
+      "nodeId": "I1000:24948;2071:43157;61419:171082;61378:431215",
+      "severity": "warning"
+    },
+    {
+      "code": "TRANSFORMED_FLOW_ITEM",
+      "message": "Transform preserved; CSS flow under rotation may differ from Figma. Compare before rendering use.",
+      "nodeId": "I1000:24948;2071:43160;16680:5785;32310:5620;32308:20091",
+      "severity": "warning"
+    },
+    {
+      "code": "QA_TOKEN_REVIEW",
+      "message": "164 distinct token resolutions need review. Preserve source values; resolution is not an implementation comparison.",
+      "nodeId": "1000:24948",
+      "severity": "warning"
+    },
+    {
+      "code": "QA_RUNTIME_EVIDENCE_REQUIRED",
+      "message": "Android accessibility, touch targets, font scaling and runtime component/token usage are not verified by a Figma export.",
+      "nodeId": "1000:24948",
+      "severity": "warning"
+    },
+    {
+      "access": {
+        "cause": "missing-scope",
+        "httpStatus": 403
+      },
+      "code": "VARIABLES_UNAVAILABLE",
+      "message": "Variable lookup denied (HTTP 403, missing-scope): check file_variables:read, file access and Enterprise eligibility. Source values are retained; no token names guessed.",
+      "nodeId": "1000:24948",
+      "severity": "warning"
+    }
+  ],
+  "schemaVersion": 1,
+  "scope": "Full QA evidence export. Source preservation is verified separately from comparison coverage.",
+  "status": "needs-review",
+  "summary": {
+    "counts": {
+      "MASK_NOT_COMPILED": 1,
+      "QA_RUNTIME_EVIDENCE_REQUIRED": 1,
+      "QA_TOKEN_REVIEW": 1,
+      "TRANSFORMED_FLOW_ITEM": 24,
+      "VARIABLES_UNAVAILABLE": 1
+    },
+    "emittedNodes": 823,
+    "extractedNodes": 1875,
+    "hiddenNodesRetained": 1052,
+    "recognizedComponents": 152,
+    "sourcePropertyCount": 54450,
+    "unresolvedTokenResolutions": 164,
+    "yamlBytes": 3436806
+  }
+}

@@ -1,0 +1,2631 @@
+{
+  "stats": {
+    "title": "Pre-search",
+    "mismatches": [],
+    "active": 158,
+    "hidden": 348,
+    "propertyCount": 14210,
+    "root": {
+      "height": 843,
+      "width": 375,
+      "x": 1984,
+      "y": 562
+    },
+    "activeFields": {
+      "id": 158,
+      "name": 158,
+      "type": 158,
+      "blendMode": 158,
+      "clipsContent": 105,
+      "counterAxisSizingMode": 25,
+      "layoutAlign": 141,
+      "layoutGrow": 141,
+      "layoutMode": 89,
+      "layoutSizingHorizontal": 141,
+      "layoutSizingVertical": 141,
+      "layoutWrap": 88,
+      "paddingBottom": 37,
+      "scrollBehavior": 158,
+      "strokeAlign": 158,
+      "strokeWeight": 158,
+      "absoluteBoundingBox": 158,
+      "absoluteRenderBounds": 158,
+      "background": 53,
+      "backgroundColor": 105,
+      "complexStrokeProperties": 158,
+      "constraints": 158,
+      "fillGeometry": 94,
+      "fills": 105,
+      "relativeTransform": 158,
+      "size": 158,
+      "componentId": 62,
+      "boundVariables": 110,
+      "componentProperties": 59,
+      "exposedInstances": 27,
+      "individualStrokeWeights": 1,
+      "overrides": 59,
+      "strokes": 29,
+      "primaryAxisSizingMode": 52,
+      "isExposedInstance": 28,
+      "paddingTop": 36,
+      "strokeJoin": 2,
+      "counterAxisAlignItems": 65,
+      "itemSpacing": 64,
+      "primaryAxisAlignItems": 47,
+      "paddingLeft": 38,
+      "characters": 34,
+      "layoutVersion": 34,
+      "lineIndentations": 34,
+      "lineTypes": 34,
+      "style": 34,
+      "styleOverrideTable": 34,
+      "paddingRight": 37,
+      "vectorNetwork": 5,
+      "cornerSmoothing": 45,
+      "rectangleCornerRadii": 1,
+      "cornerRadius": 44,
+      "opacity": 2,
+      "strokeGeometry": 28,
+      "componentPropertyReferences": 41,
+      "rotation": 1,
+      "styles": 33,
+      "layoutPositioning": 2,
+      "transitionDuration": 13,
+      "transitionEasing": 13,
+      "transitionNodeID": 13,
+      "interactions": 14,
+      "counterAxisAlignContent": 2,
+      "counterAxisSpacing": 2,
+      "minHeight": 40,
+      "gridAutoTracks": 1,
+      "gridColumnCount": 1,
+      "gridColumnGap": 1,
+      "gridColumnsSizing": 1,
+      "gridItemsPositioning": 1,
+      "gridRowCount": 1,
+      "gridRowGap": 1,
+      "gridRowsSizing": 1,
+      "gridChildHorizontalAlign": 12,
+      "gridChildVerticalAlign": 12,
+      "gridColumnAnchorIndex": 12,
+      "gridColumnSpan": 12,
+      "gridRowAnchorIndex": 12,
+      "gridRowSpan": 12,
+      "maxHeight": 13,
+      "maxWidth": 12,
+      "minWidth": 12,
+      "targetAspectRatio": 24,
+      "preserveRatio": 12
+    },
+    "tokenStates": {
+      "unresolved": 86
+    },
+    "styleNames": [
+      "low",
+      "Neutral/primary",
+      "Mobile/title/small",
+      "Mobile/Platform/Home Bar",
+      "Mobile/body/base",
+      "Mobile/body/small",
+      "Mobile/highlight/xsmall",
+      "Neutral/surface",
+      "Mobile/body/xsmall",
+      "Mobile/highlight/small",
+      "Mobile/highlight/small",
+      "Labels/Primary",
+      "Body/Regular",
+      "Colors/Blue",
+      "Grays/White",
+      "Callout/Regular",
+      "Grays/Black",
+      "Mobile/body/base",
+      "Mobile/highlight/base",
+      "Mobile/highlight/small"
+    ],
+    "accessibility": {
+      "designAnnotations": 0,
+      "requiredChecks": [
+        "authored accessibility expectations",
+        "labels and content descriptions",
+        "roles",
+        "states and actions",
+        "focus and traversal order",
+        "touch target bounds",
+        "contrast against actual composited background",
+        "font scaling and clipping",
+        "TalkBack on device"
+      ],
+      "status": "runtime-evidence-required"
+    }
+  },
+  "examples": {
+    "text": [
+      {
+        "id": "I7085:49908;96:53287;32308:20362;32276:1796",
+        "name": "Time",
+        "text": "9:41",
+        "style": {
+          "fontFamily": "SF Pro",
+          "fontPostScriptName": "SFPro-Semibold",
+          "fontSize": 17,
+          "fontStyle": "Semibold",
+          "fontWeight": 590,
+          "letterSpacing": 0,
+          "lineHeightPercent": 108.44324493408203,
+          "lineHeightPercentFontSize": 129.41175842285156,
+          "lineHeightPx": 22,
+          "lineHeightUnit": "PIXELS",
+          "textAlignHorizontal": "CENTER",
+          "textAlignVertical": "TOP",
+          "textAutoResize": "WIDTH_AND_HEIGHT"
+        }
+      },
+      {
+        "id": "I7085:49908;96:53288;379:182519;82:47290",
+        "name": "placeholder",
+        "text": "Search products and categories",
+        "style": {
+          "fontFamily": "SF Pro",
+          "fontPostScriptName": "SFPro-Regular",
+          "fontSize": 14,
+          "fontStyle": "Regular",
+          "fontWeight": 400,
+          "letterSpacing": -0.15000000596046448,
+          "lineHeightPercent": 95.76806640625,
+          "lineHeightPercentFontSize": 114.28571319580078,
+          "lineHeightPx": 16,
+          "lineHeightUnit": "PIXELS",
+          "maxLines": 1,
+          "textAlignHorizontal": "LEFT",
+          "textAlignVertical": "TOP",
+          "textAutoResize": "HEIGHT",
+          "textTruncation": "ENDING"
+        },
+        "styles": {
+          "text": "7528:32918"
+        }
+      },
+      {
+        "id": "7085:49914",
+        "name": "Recent searches",
+        "text": "Recent searches",
+        "style": {
+          "fontFamily": "PP Agrandir",
+          "fontPostScriptName": "PPAgrandir-Bold",
+          "fontSize": 16,
+          "fontStyle": "Bold",
+          "fontWeight": 700,
+          "letterSpacing": 0,
+          "lineHeightPercent": 89.96212005615234,
+          "lineHeightPercentFontSize": 118.75,
+          "lineHeightPx": 19,
+          "lineHeightUnit": "PIXELS",
+          "opentypeFlags": {
+            "SALT": 1
+          },
+          "textAlignHorizontal": "LEFT",
+          "textAlignVertical": "TOP",
+          "textAutoResize": "HEIGHT"
+        },
+        "styles": {
+          "text": "6106:32870"
+        }
+      },
+      {
+        "id": "I7085:49915;25143:48402",
+        "name": "Label",
+        "text": "Clear All",
+        "style": {
+          "fontFamily": "SF Pro",
+          "fontPostScriptName": "SFPro-Bold",
+          "fontSize": 14,
+          "fontStyle": "Bold",
+          "fontWeight": 700,
+          "letterSpacing": -0.15000000596046448,
+          "lineHeightPercent": 95.76806640625,
+          "lineHeightPercentFontSize": 114.28571319580078,
+          "lineHeightPx": 16,
+          "lineHeightUnit": "PIXELS",
+          "textAlignHorizontal": "CENTER",
+          "textAlignVertical": "TOP",
+          "textAutoResize": "WIDTH_AND_HEIGHT"
+        },
+        "styles": {
+          "text": "7528:33037"
+        }
+      },
+      {
+        "id": "I7085:49919;31:25515",
+        "name": "Label",
+        "text": "milk",
+        "style": {
+          "fontFamily": "SF Pro",
+          "fontPostScriptName": "SFPro-Bold",
+          "fontSize": 12,
+          "fontStyle": "Bold",
+          "fontWeight": 700,
+          "letterSpacing": 0,
+          "lineHeightPercent": 97.76322937011719,
+          "lineHeightPercentFontSize": 116.66666412353516,
+          "lineHeightPx": 14,
+          "lineHeightUnit": "PIXELS",
+          "textAlignHorizontal": "CENTER",
+          "textAlignVertical": "TOP",
+          "textAutoResize": "WIDTH_AND_HEIGHT"
+        },
+        "styles": {
+          "text": "7082:44602"
+        }
+      },
+      {
+        "id": "I7085:49920;31:25515",
+        "name": "Label",
+        "text": "bread",
+        "style": {
+          "fontFamily": "SF Pro",
+          "fontPostScriptName": "SFPro-Bold",
+          "fontSize": 12,
+          "fontStyle": "Bold",
+          "fontWeight": 700,
+          "letterSpacing": 0,
+          "lineHeightPercent": 97.76322937011719,
+          "lineHeightPercentFontSize": 116.66666412353516,
+          "lineHeightPx": 14,
+          "lineHeightUnit": "PIXELS",
+          "textAlignHorizontal": "CENTER",
+          "textAlignVertical": "TOP",
+          "textAutoResize": "WIDTH_AND_HEIGHT"
+        },
+        "styles": {
+          "text": "7082:44602"
+        }
+      },
+      {
+        "id": "I7085:49921;31:25515",
+        "name": "Label",
+        "text": "eggs",
+        "style": {
+          "fontFamily": "SF Pro",
+          "fontPostScriptName": "SFPro-Bold",
+          "fontSize": 12,
+          "fontStyle": "Bold",
+          "fontWeight": 700,
+          "letterSpacing": 0,
+          "lineHeightPercent": 97.76322937011719,
+          "lineHeightPercentFontSize": 116.66666412353516,
+          "lineHeightPx": 14,
+          "lineHeightUnit": "PIXELS",
+          "textAlignHorizontal": "CENTER",
+          "textAlignVertical": "TOP",
+          "textAutoResize": "WIDTH_AND_HEIGHT"
+        },
+        "styles": {
+          "text": "7082:44602"
+        }
+      },
+      {
+        "id": "I7085:49922;31:25515",
+        "name": "Label",
+        "text": "ice cream",
+        "style": {
+          "fontFamily": "SF Pro",
+          "fontPostScriptName": "SFPro-Bold",
+          "fontSize": 12,
+          "fontStyle": "Bold",
+          "fontWeight": 700,
+          "letterSpacing": 0,
+          "lineHeightPercent": 97.76322937011719,
+          "lineHeightPercentFontSize": 116.66666412353516,
+          "lineHeightPx": 14,
+          "lineHeightUnit": "PIXELS",
+          "textAlignHorizontal": "CENTER",
+          "textAlignVertical": "TOP",
+          "textAutoResize": "WIDTH_AND_HEIGHT"
+        },
+        "styles": {
+          "text": "7082:44602"
+        }
+      },
+      {
+        "id": "I7182:89378;31:25515",
+        "name": "Label",
+        "text": "rice",
+        "style": {
+          "fontFamily": "SF Pro",
+          "fontPostScriptName": "SFPro-Bold",
+          "fontSize": 12,
+          "fontStyle": "Bold",
+          "fontWeight": 700,
+          "letterSpacing": 0,
+          "lineHeightPercent": 97.76322937011719,
+          "lineHeightPercentFontSize": 116.66666412353516,
+          "lineHeightPx": 14,
+          "lineHeightUnit": "PIXELS",
+          "textAlignHorizontal": "CENTER",
+          "textAlignVertical": "TOP",
+          "textAutoResize": "WIDTH_AND_HEIGHT"
+        },
+        "styles": {
+          "text": "7082:44602"
+        }
+      },
+      {
+        "id": "I7182:89380;31:25515",
+        "name": "Label",
+        "text": "chocolate",
+        "style": {
+          "fontFamily": "SF Pro",
+          "fontPostScriptName": "SFPro-Bold",
+          "fontSize": 12,
+          "fontStyle": "Bold",
+          "fontWeight": 700,
+          "letterSpacing": 0,
+          "lineHeightPercent": 97.76322937011719,
+          "lineHeightPercentFontSize": 116.66666412353516,
+          "lineHeightPx": 14,
+          "lineHeightUnit": "PIXELS",
+          "textAlignHorizontal": "CENTER",
+          "textAlignVertical": "TOP",
+          "textAutoResize": "WIDTH_AND_HEIGHT"
+        },
+        "styles": {
+          "text": "7082:44602"
+        }
+      },
+      {
+        "id": "I7182:89379;31:25515",
+        "name": "Label",
+        "text": "coca cola",
+        "style": {
+          "fontFamily": "SF Pro",
+          "fontPostScriptName": "SFPro-Bold",
+          "fontSize": 12,
+          "fontStyle": "Bold",
+          "fontWeight": 700,
+          "letterSpacing": 0,
+          "lineHeightPercent": 97.76322937011719,
+          "lineHeightPercentFontSize": 116.66666412353516,
+          "lineHeightPx": 14,
+          "lineHeightUnit": "PIXELS",
+          "textAlignHorizontal": "CENTER",
+          "textAlignVertical": "TOP",
+          "textAutoResize": "WIDTH_AND_HEIGHT"
+        },
+        "styles": {
+          "text": "7082:44602"
+        }
+      },
+      {
+        "id": "I7182:89377;31:25515",
+        "name": "Label",
+        "text": "tomatos",
+        "style": {
+          "fontFamily": "SF Pro",
+          "fontPostScriptName": "SFPro-Bold",
+          "fontSize": 12,
+          "fontStyle": "Bold",
+          "fontWeight": 700,
+          "letterSpacing": 0,
+          "lineHeightPercent": 97.76322937011719,
+          "lineHeightPercentFontSize": 116.66666412353516,
+          "lineHeightPx": 14,
+          "lineHeightUnit": "PIXELS",
+          "textAlignHorizontal": "CENTER",
+          "textAlignVertical": "TOP",
+          "textAutoResize": "WIDTH_AND_HEIGHT"
+        },
+        "styles": {
+          "text": "7082:44602"
+        }
+      },
+      {
+        "id": "7085:49929",
+        "name": "Popular searches",
+        "text": "Popular searches",
+        "style": {
+          "fontFamily": "PP Agrandir",
+          "fontPostScriptName": "PPAgrandir-Bold",
+          "fontSize": 16,
+          "fontStyle": "Bold",
+          "fontWeight": 700,
+          "letterSpacing": 0,
+          "lineHeightPercent": 89.96212005615234,
+          "lineHeightPercentFontSize": 118.75,
+          "lineHeightPx": 19,
+          "lineHeightUnit": "PIXELS",
+          "opentypeFlags": {
+            "SALT": 1
+          },
+          "textAlignHorizontal": "LEFT",
+          "textAlignVertical": "TOP",
+          "textAutoResize": "HEIGHT"
+        },
+        "styles": {
+          "text": "6106:32870"
+        }
+      },
+      {
+        "id": "I7085:49931;31:25515",
+        "name": "Label",
+        "text": "Flowers",
+        "style": {
+          "fontFamily": "SF Pro",
+          "fontPostScriptName": "SFPro-Bold",
+          "fontSize": 12,
+          "fontStyle": "Bold",
+          "fontWeight": 700,
+          "letterSpacing": 0,
+          "lineHeightPercent": 97.76322937011719,
+          "lineHeightPercentFontSize": 116.66666412353516,
+          "lineHeightPx": 14,
+          "lineHeightUnit": "PIXELS",
+          "textAlignHorizontal": "CENTER",
+          "textAlignVertical": "TOP",
+          "textAutoResize": "WIDTH_AND_HEIGHT"
+        },
+        "styles": {
+          "text": "7082:44602"
+        }
+      },
+      {
+        "id": "I7085:49932;31:25515",
+        "name": "Label",
+        "text": "pizza",
+        "style": {
+          "fontFamily": "SF Pro",
+          "fontPostScriptName": "SFPro-Bold",
+          "fontSize": 12,
+          "fontStyle": "Bold",
+          "fontWeight": 700,
+          "letterSpacing": 0,
+          "lineHeightPercent": 97.76322937011719,
+          "lineHeightPercentFontSize": 116.66666412353516,
+          "lineHeightPx": 14,
+          "lineHeightUnit": "PIXELS",
+          "textAlignHorizontal": "CENTER",
+          "textAlignVertical": "TOP",
+          "textAutoResize": "WIDTH_AND_HEIGHT"
+        },
+        "styles": {
+          "text": "7082:44602"
+        }
+      },
+      {
+        "id": "I7085:49933;31:25515",
+        "name": "Label",
+        "text": "eggs",
+        "style": {
+          "fontFamily": "SF Pro",
+          "fontPostScriptName": "SFPro-Bold",
+          "fontSize": 12,
+          "fontStyle": "Bold",
+          "fontWeight": 700,
+          "letterSpacing": 0,
+          "lineHeightPercent": 97.76322937011719,
+          "lineHeightPercentFontSize": 116.66666412353516,
+          "lineHeightPx": 14,
+          "lineHeightUnit": "PIXELS",
+          "textAlignHorizontal": "CENTER",
+          "textAlignVertical": "TOP",
+          "textAutoResize": "WIDTH_AND_HEIGHT"
+        },
+        "styles": {
+          "text": "7082:44602"
+        }
+      },
+      {
+        "id": "I7085:49934;31:25515",
+        "name": "Label",
+        "text": "vape",
+        "style": {
+          "fontFamily": "SF Pro",
+          "fontPostScriptName": "SFPro-Bold",
+          "fontSize": 12,
+          "fontStyle": "Bold",
+          "fontWeight": 700,
+          "letterSpacing": 0,
+          "lineHeightPercent": 97.76322937011719,
+          "lineHeightPercentFontSize": 116.66666412353516,
+          "lineHeightPx": 14,
+          "lineHeightUnit": "PIXELS",
+          "textAlignHorizontal": "CENTER",
+          "textAlignVertical": "TOP",
+          "textAutoResize": "WIDTH_AND_HEIGHT"
+        },
+        "styles": {
+          "text": "7082:44602"
+        }
+      },
+      {
+        "id": "I7085:49935;31:25515",
+        "name": "Label",
+        "text": "coffee",
+        "style": {
+          "fontFamily": "SF Pro",
+          "fontPostScriptName": "SFPro-Bold",
+          "fontSize": 12,
+          "fontStyle": "Bold",
+          "fontWeight": 700,
+          "letterSpacing": 0,
+          "lineHeightPercent": 97.76322937011719,
+          "lineHeightPercentFontSize": 116.66666412353516,
+          "lineHeightPx": 14,
+          "lineHeightUnit": "PIXELS",
+          "textAlignHorizontal": "CENTER",
+          "textAlignVertical": "TOP",
+          "textAutoResize": "WIDTH_AND_HEIGHT"
+        },
+        "styles": {
+          "text": "7082:44602"
+        }
+      }
+    ],
+    "layout": [
+      {
+        "id": "7085:50608",
+        "name": "Pre-search",
+        "box": {
+          "height": 843,
+          "width": 375,
+          "x": 1984,
+          "y": 562
+        },
+        "padding": [
+          null,
+          null,
+          34,
+          null
+        ]
+      },
+      {
+        "id": "7085:49908",
+        "name": "📱 Header",
+        "box": {
+          "height": 95,
+          "width": 375,
+          "x": 1984,
+          "y": 562
+        },
+        "padding": [
+          null,
+          null,
+          4,
+          null
+        ]
+      },
+      {
+        "id": "I7085:49908;96:53287",
+        "name": "🔩 StatusBar",
+        "box": {
+          "height": 47,
+          "width": 375,
+          "x": 1984,
+          "y": 562
+        },
+        "padding": [
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "id": "I7085:49908;96:53287;32308:20362",
+        "name": ".StatusBar",
+        "box": {
+          "height": 47,
+          "width": 375,
+          "x": 1984,
+          "y": 562
+        },
+        "padding": [
+          15,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "id": "I7085:49908;96:53287;32308:20362;32276:1794",
+        "name": "Frame",
+        "box": {
+          "height": 22,
+          "width": 375,
+          "x": 1984,
+          "y": 577
+        },
+        "padding": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "gap": 134,
+        "align": "SPACE_BETWEEN"
+      },
+      {
+        "id": "I7085:49908;96:53287;32308:20362;32276:1795",
+        "name": "Time",
+        "box": {
+          "height": 22,
+          "width": 105,
+          "x": 1984,
+          "y": 577
+        },
+        "padding": [
+          null,
+          null,
+          null,
+          4
+        ],
+        "gap": 10,
+        "align": "CENTER"
+      },
+      {
+        "id": "I7085:49908;96:53287;32308:20362;32276:1797",
+        "name": "Dynamic Island spacer",
+        "box": {
+          "height": 10,
+          "width": 165,
+          "x": 2089,
+          "y": 583
+        },
+        "padding": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "align": "CENTER"
+      },
+      {
+        "id": "I7085:49908;96:53287;32308:20362;32276:1798",
+        "name": "Levels",
+        "box": {
+          "height": 13,
+          "width": 105,
+          "x": 2254,
+          "y": 581.5
+        },
+        "padding": [
+          null,
+          16,
+          null,
+          6
+        ],
+        "gap": 7,
+        "align": "CENTER"
+      },
+      {
+        "id": "I7085:49908;96:53288",
+        "name": "📱 Header title content",
+        "box": {
+          "height": 44,
+          "width": 375,
+          "x": 1984,
+          "y": 609
+        },
+        "padding": [
+          null,
+          16,
+          null,
+          16
+        ],
+        "gap": 16
+      },
+      {
+        "id": "I7085:49908;96:53288;379:181004",
+        "name": "🎨 Left Icon",
+        "box": {
+          "height": 32,
+          "width": 32,
+          "x": 2000,
+          "y": 615
+        },
+        "padding": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "gap": 8,
+        "align": "CENTER"
+      },
+      {
+        "id": "I7085:49908;96:53288;379:181004;52238:78840",
+        "name": "icon_wrapper",
+        "box": {
+          "height": 32,
+          "width": 32,
+          "x": 2000,
+          "y": 615
+        },
+        "padding": [
+          4,
+          4,
+          4,
+          4
+        ],
+        "align": "CENTER",
+        "radius": 9999
+      },
+      {
+        "id": "I7085:49908;96:53288;379:182518",
+        "name": ".center section",
+        "box": {
+          "height": 40,
+          "width": 295,
+          "x": 2048,
+          "y": 611
+        },
+        "padding": [
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "id": "I7085:49908;96:53288;379:182519",
+        "name": "📱 Search / Input",
+        "box": {
+          "height": 40,
+          "width": 295,
+          "x": 2048,
+          "y": 611
+        },
+        "padding": [
+          null,
+          8,
+          null,
+          12
+        ],
+        "gap": 8,
+        "align": "CENTER",
+        "radius": 9999
+      },
+      {
+        "id": "I7085:49908;96:53288;379:182519;82:47289",
+        "name": "Content",
+        "box": {
+          "height": 40,
+          "width": 243,
+          "x": 2092,
+          "y": 611
+        },
+        "padding": [
+          12,
+          null,
+          12,
+          null
+        ]
+      },
+      {
+        "id": "7085:49909",
+        "name": "Frame 316127897",
+        "box": {
+          "height": 714,
+          "width": 375,
+          "x": 1984,
+          "y": 657
+        },
+        "padding": [
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      {
+        "id": "7085:49910",
+        "name": "Section",
+        "box": {
+          "height": 148,
+          "width": 375,
+          "x": 1984,
+          "y": 657
+        },
+        "padding": [
+          12,
+          null,
+          12,
+          null
+        ],
+        "gap": 4
+      },
+      {
+        "id": "7085:49911",
+        "name": "Title",
+        "box": {
+          "height": 32,
+          "width": 375,
+          "x": 1984,
+          "y": 669
+        },
+        "padding": [
+          null,
+          16,
+          null,
+          16
+        ],
+        "gap": 12
+      },
+      {
+        "id": "7085:49915",
+        "name": "📱 Button text small",
+        "box": {
+          "height": 32,
+          "width": 59,
+          "x": 2284,
+          "y": 669
+        },
+        "padding": [
+          8,
+          null,
+          8,
+          null
+        ],
+        "align": "CENTER"
+      },
+      {
+        "id": "7085:49918",
+        "name": "Content",
+        "box": {
+          "height": 88,
+          "width": 375,
+          "x": 1984,
+          "y": 705
+        },
+        "padding": [
+          8,
+          16,
+          8,
+          16
+        ],
+        "gap": 8
+      },
+      {
+        "id": "7085:49919",
+        "name": "📱 Pills small",
+        "box": {
+          "height": 32,
+          "width": 50,
+          "x": 2000,
+          "y": 713
+        },
+        "padding": [
+          8,
+          12,
+          8,
+          12
+        ],
+        "gap": 4,
+        "align": "CENTER",
+        "radius": 9999
+      }
+    ],
+    "components": [
+      {
+        "name": "📱 Header",
+        "identity": {
+          "componentId": "8133:38804",
+          "componentKey": "0cc1cfcfd9ce8e129d548463c6544077300087b9",
+          "componentSetKey": "d2a2bfa6d06130118f12ab622869e7cb6b2fe3c6",
+          "name": "Bottom content=none, Show Banner=no, Colored=no",
+          "remote": true,
+          "setName": "📱 Header"
+        },
+        "props": {
+          "Bottom content": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "none"
+          },
+          "Bottom slot#1434:40": {
+            "type": "BOOLEAN",
+            "value": false
+          },
+          "Colored": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "no"
+          },
+          "Show Banner": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "no"
+          },
+          "Swap bottom#1434:6": {
+            "preferredValues": [
+              {
+                "key": "a17f3ac9f0621245ba058c04a1bd31e810d1ca55",
+                "type": "COMPONENT_SET"
+              },
+              {
+                "key": "ff9781894edc4728747ece7eee9e5527d0395dfe",
+                "type": "COMPONENT_SET"
+              }
+            ],
+            "type": "INSTANCE_SWAP",
+            "value": "7528:34345"
+          },
+          "Swap top#1434:23": {
+            "preferredValues": [
+              {
+                "key": "6e6b7127d24fd31e8d7f64f550f064204f38b7e4",
+                "type": "COMPONENT_SET"
+              },
+              {
+                "key": "4dd5d66f0b4b85948f74d8405c7c7120ba344156",
+                "type": "COMPONENT_SET"
+              },
+              {
+                "key": "ff9781894edc4728747ece7eee9e5527d0395dfe",
+                "type": "COMPONENT_SET"
+              },
+              {
+                "key": "53ed356567a7228f0dc0ac17beb7e6a03682ea2b",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "942ba8a8e59e95167904221d97fa76900ce3b57c",
+                "type": "COMPONENT_SET"
+              },
+              {
+                "key": "018457c8b884ab35af1fa3899b62a453e6d4acd1",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "a17f3ac9f0621245ba058c04a1bd31e810d1ca55",
+                "type": "COMPONENT_SET"
+              }
+            ],
+            "type": "INSTANCE_SWAP",
+            "value": "7528:34345"
+          },
+          "show Badge in filters#52679:195": {
+            "type": "BOOLEAN",
+            "value": false
+          }
+        }
+      },
+      {
+        "name": "🔩 StatusBar",
+        "identity": {
+          "componentId": "7528:35735",
+          "componentKey": "52c29297879f683a600f363e36b44c85774e4b14",
+          "componentSetKey": null,
+          "name": "🔩 StatusBar",
+          "remote": true,
+          "setName": null
+        }
+      },
+      {
+        "name": ".StatusBar",
+        "identity": {
+          "componentId": "7052:61929",
+          "componentKey": "d1e3d95d22f6e6c4e3f845cef56eb304b138794f",
+          "componentSetKey": "b2a11a90e94430f4a274479533a490004ef4183b",
+          "name": "background=true, platform=iOS, style=Default",
+          "remote": true,
+          "setName": ".StatusBar"
+        },
+        "props": {
+          "background": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "true"
+          },
+          "platform": {
+            "boundVariables": {
+              "value": {
+                "id": "VariableID:2507e80f95f5441555f3c20e4c45bca8af1cc9c0/19706:125",
+                "type": "VARIABLE_ALIAS"
+              }
+            },
+            "type": "VARIANT",
+            "value": "iOS"
+          },
+          "style": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "Default"
+          }
+        }
+      },
+      {
+        "name": "📱 Header title content",
+        "identity": {
+          "componentId": "8133:38077",
+          "componentKey": "3205191db52d13e05c61e02d37348d3d3e325ba5",
+          "componentSetKey": "a3598f97fa621994527928c7c17fa9d59a90538e",
+          "name": "Center content=search active, Hide center=no, Right content=link, Hide right=no",
+          "remote": true,
+          "setName": "📱 Header title content"
+        },
+        "props": {
+          "Center content": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "search active"
+          },
+          "Hide center": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "no"
+          },
+          "Hide right": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "no"
+          },
+          "Right content": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "link"
+          },
+          "Swap centre#1012:4": {
+            "preferredValues": [
+              {
+                "key": "6bbcf7ee214ec82a7e9d9f0e4cf3554543c1f5d4",
+                "type": "COMPONENT_SET"
+              },
+              {
+                "key": "13f01ac1b94efd73608be5c5e9c13678f2f3c8ac",
+                "type": "COMPONENT_SET"
+              },
+              {
+                "key": "c08c2304a041baf6d233e539d88f07f76cd85cc9",
+                "type": "COMPONENT_SET"
+              }
+            ],
+            "type": "INSTANCE_SWAP",
+            "value": "7528:34915"
+          },
+          "show Badge in Icon 1#52679:0": {
+            "type": "BOOLEAN",
+            "value": false
+          },
+          "show Badge in Icon 2#52679:65": {
+            "type": "BOOLEAN",
+            "value": false
+          },
+          "show Badge in icon 3#52679:130": {
+            "type": "BOOLEAN",
+            "value": false
+          },
+          "show Left#52706:216": {
+            "type": "BOOLEAN",
+            "value": true
+          }
+        }
+      },
+      {
+        "name": "🎨 Left Icon",
+        "identity": {
+          "componentId": "8133:37961",
+          "componentKey": "7127bc53e1cdbd9dcf224876e42be09c725f195f",
+          "componentSetKey": "fb0294500bf1e3c795e1f7b377bc6a52bc2bfcd1",
+          "name": "is Elevated=No, is Contained=No, Size=Medium (default), State=Default",
+          "remote": true,
+          "setName": "📱 Circular"
+        },
+        "props": {
+          "Icon:#2722:0": {
+            "preferredValues": [
+              {
+                "key": "3857223a6e03b86e4b94bd111d174aa867f8c5a4",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "dda8f475b3b0e77ae489d0837ecec37923f47816",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "bbd5ffd54aeab257bee5e953ca7d3ddd155afd52",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "b2c1acbce00a89da240a6e921f378d39a0a46368",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "d64603c96d377d4e0a80def4dc4b5dd7be11f516",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "25edbb854d03b406d061a4d67a4831491f76dee5",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "4ffc684e16f615cc90ba5be927553bea596d9c48",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "3497b750a6147ce898442922671ad698bfebfbeb",
+                "type": "COMPONENT_SET"
+              },
+              {
+                "key": "bf34d97aca04bb475ee8768602741e48cdc4045c",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "063e8231d3fe28dc7145e6409f03cb27ed01a2bb",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "0b8b646710486cd34ec9abc9161a62fd261e1b1a",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "f10cb44e470a15867a946084c3fdb6c219e4487a",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "492c33063bab8e8231f854a40296dea2da9b9a93",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "d721824b169566e277149719ad5d0c3511f402c7",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "8c5c835f9c2c6420312268b372d874181ae0e2f4",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "4a1ffd9bef8e4e3d25cd597f02d8f0bcc7f82a04",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "dd76111250f970e11f55c7a567b69aef99f2df75",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "b235d53cec0f6a9bc8d4a30d4923eec8e5dd70f0",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "e5203918c0f962924a2e50a54a0abd5d6777c576",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "a4777f43d48b966ba6bb50a5da455052af80a794",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "32695e967597a0d8174a9fb05ed25d18ceba2eef",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "73793ba5d5036981b85468a9ead5795f3484a7f3",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "6fcaf21eab8285cae1fa73b462e461bbed2d6b9f",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "c3f08ef07313c0aa54f2f1aa29110bb6269263c9",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "d4442c2e7e15e5b4ff143000b403dfddf1030e09",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "1447d3102f8b76ccfe15e113bf82366d9a9ce3e4",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "9415408d962c4cc011ca3daa9a6751ff85452f69",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "05964d8ab26cc27b70a2ce995371f671e693a1b9",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "c57a1616eae7b9b7fe64d98c9eb9253e2dcb13a7",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "5cf0afeb65e18e9a884dcacd0d316d3dee60ce9f",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "cd0bd0e1e027280eb7d2cd76be2abead8be31f6c",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "186d642a1ed714823a6d6e32c9d9ba4d3c9a9b8e",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "15dc7a902222caad965c37f09d280129eb012e58",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "dcba152d0372e73d7a7e1c304c45883bce5d248c",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "c422c6f75a5b8225d24b56d70a88376f0981fe15",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "c000255b14f37c236699162ab48dc77e265a3621",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "11f7d995bd549041d939fd1b4ae27abc3b47ae8f",
+                "type": "COMPONENT_SET"
+              },
+              {
+                "key": "f613151ab9a7f72047f9f9991beedbbb7799bf0c",
+                "type": "COMPONENT_SET"
+              },
+              {
+                "key": "3aeb21031b65e950469b61e439fe74876c5862c0",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "0754ed6559e0ea6fbfd9bcb1dbed7da057671535",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "ca4644f69eaeb5a5a123383e90b92417e1ef57ac",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "353c81bbe24bfd3a32d77e97b9c4103aa935a2a0",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "3b52db85609c45fccd445858abdcfd22feb1b07d",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "596462ad29d864b1fc2ccba24b0375e801247424",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "4b8273d4596139c3d50aef136d910604b719cf91",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "e279a0108db744444842d1e60f02fdc18c451f19",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "7bd1b88ac887e6c0989dac0dcee26d563b36cd23",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "b2a0af36f2f6f61e603f974add1e3d2a0112435a",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "3448efd294a998bed58e591390bbea34e4ff49ac",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "7e3c49b3ceef3daa234808509634624041220c02",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "c6a917101a848b13b81cac3f76e651e1cb8b3467",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "09727ad5ebb9b1de4c34f7846c7651359e478ed1",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "2a93786c0c6050425368be726420b8478bb88ef1",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "f0c57d3110a6faf24caf85398b2c46d820407c66",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "eb6a87f6fd6ac90dd764832e3795e5d17d96a372",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "c5df782bf5c8402c8acbc3e111b478fe0a380d65",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "ab4edd2f25b2aadd360bb3adc9c09ee049f9493a",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "83ae11fcf1541902b94af383c4156ec99ac5f5c4",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "764c03fd75c7be6f83263d60b99c043e2656e324",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "5378cfd4a43455b563b648822e3b82f296461d66",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "9171f1fb95f752e651ad53abc582dea8fe077393",
+                "type": "COMPONENT_SET"
+              },
+              {
+                "key": "f3b3014d4dd7df092394dd566434f149ad5679a6",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "e6958d18eccf041c8091659aee7de90316a5880c",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "f1c5866616fc0c33c594effcae98751f3cdfd66b",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "2af421ee0cfa0c09b3d311a9eefecd30a912bed2",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "43d17211141321b44ed82b8129ca8e719d163923",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "d3b137b1e2c1a98b3065d12ada80b087596f5f7f",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "107bfdeab27742ecc462e3643ee95d0f2fa2fbac",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "b4b1afa6c849f36fdfc1f2b8bcee96cf17c26dd2",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "b85e222f2b5ff9f9492ba26b2a02cb6c3445f107",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "b94cabc1c829917cdc6ea125fd3a839642127108",
+                "type": "COMPONENT_SET"
+              },
+              {
+                "key": "588f14d26844466c27ad7f171c43bfd115f9b3e2",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "119bca608ac893cc9d8c7033f1bd51d4645e09d9",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "e827b91e4f039dcb5fecc4d0dc485183ffa515c0",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "3ca78fdfb6c27726fe6ac09ce7ff82c46dd90766",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "70ea69b2865bb58bcfecc61283c893246b161ea8",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "b1c6c2501a4224d612447d2516185a009866c39e",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "b9657845854061193785ad40f95740941aec49a6",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "5a8108a119d89ea64cb951148385d45bb5946dbb",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "bb2112e5b0f143d288f2bc04777f735605901d15",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "a8518d23f5a1c418c711bfdc3e58e18a4621dfa6",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "59d2cbab8f46b4b95769928f3a7a878dd2addfaf",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "1d965c96eaa10c4a2388cf996faa1dd219794bdc",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "d7ae2aad30106fcc95ec6dd16b55c8cf7800ab9f",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "73a9e5bfe4986b4458fdb70ef6f7872f87650f72",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "794e9b0d9a053946816ced32d0c90c2b2978e0a5",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "76ceb016c2ff43abb9ba9867062fef01231171a3",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "917ec7222750db3b6eb318453cd804eaf910e0f6",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "64fc1f57ecfd602db326d8f7a3f75f0a1e3fd90b",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "15deea1c18f4adda4cef9f7cf3f7809bdd3a5192",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "a19dbef8fdb227db6c4af449f0878b1772904623",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "54024ae493a1a953e11b5c8e19f289c834a47d85",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "b69508338fce704c9af74c143f6909e72e37cd8c",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "439e67c03169553033b528236ca135aeb4815e00",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "d755007ae9d498ec8b5e5ffce6f51a082af3f98e",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "f13496f4641596c579380b15bbbb7f38195ba65a",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "b6a067da761451185b5a52c20cc75fcfcb9d7080",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "417fe7f0446b4f10183b892d66033d6faa2ac6a1",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "3c316d6ac8a14b5a77ce76ee6f46c3d3cbd78b4e",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "f2b0194c1c1c5d8b23efc73d297cb198ea1a6f72",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "1de3ea1c8ff62354c9ef2699c841c9fd851fad7c",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "048fd9aca2b2c97588227b3a44e14f0e6eebfa18",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "e7538d2018a0219463f4f8f49ffa0b8d9a27b2a6",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "4f115bb691b52d2095728a82732eeb7d3b778e13",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "bc09923c6f46c66d1561876fb5d6a47e05e4c7d2",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "d73640beb63d44a9856f8d37c9f54ba09b0a0a10",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "e1361decc1bbc1b4ef685bc57ecb21eae56b151f",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "c9f977e1b9f8aafb25fce3e1e5a3a4306bd56b25",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "32b49f13dec0ac9daf630b6b8ff3df644643aec4",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "a5ff5d3cf2ec5ec40fb2a17e27d73ce6a5c51a2d",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "621ae6cea675f7b0e64f1297e834c827e2857385",
+                "type": "COMPONENT_SET"
+              },
+              {
+                "key": "3feb5084b1af590f5b0724e4b7977a20d716d4d2",
+                "type": "COMPONENT_SET"
+              },
+              {
+                "key": "d55fda557c941411bcf56c0d81db955ad77d2727",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "9db16a78e148fe390cb355769678d3725985f80c",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "e24c5bed42cbb48d57b29bb603811c46a2bfb460",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "e6ddbb1ca3f1030083e1dd9eb6fe499daec20fa7",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "3fb61299c3d4dd496e187d6bf8556207c12b8089",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "5543a876f58419e2247f80f05bf99fa5804ad4a8",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "d6e2cc00ef2d383870edcd16d640132039ac25ea",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "fed7cced36d8550b594a5bbc694a189c36d3d21e",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "42fa2249a7432d702c806fc75fea422a5df7117b",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "f13683962de33e38347323fd0bfa8fa134256047",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "21e0333961606cedee525a69bec70380ce144561",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "201f4962684d2d8ed923fd0021da7ea42b446fd1",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "c957deca76b1da837d2058dd4dad5d260ba5741d",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "fa2691279141df954b8ce8d2984a7abd5b74899a",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "7aae0085b3008ccee36e16cccbf7031fd82ab69b",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "5fa99942dcd8eded96ad83e2f31abdefd162476f",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "177dfbe43f24c9352713ed331902b4e3a1587558",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "3a22aefed060751a93c2c0d9ec7b031f2b99b47a",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "540d9946b3274a10e0f8baaab27ff91a1c9684fe",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "d2704786a73a7231f9c453c59f6abfb295c6f004",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "3c8493d52908aa5c27b383dadbbe1d00ab503a83",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "d74bd0bbb93286ad570cb6176704e277b6b8f87a",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "8ead76132c0ba9c281a25602ac0ed284bb154a24",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "41be21411895eff217032bc8a7dc2542725eeab3",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "0b3e31118016b22bcbc930cf7a1b0ebc214b2916",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "bb8c155c53fb3e78f225f46fa45cd8fdcb7683de",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "cbb52e0455c5174af38e259fe9a8f78d7bd71b88",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "4253711da1e688a4f79e824c9957d4d43f60396d",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "7ad23660c6dbf57b6d9db75d5ee8fcf8c54b8b1b",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "18bfa4afca3cd05e24bf5d046816009775ed4f01",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "be9becff89550c8af6911a4cd9a6d919cf15fbff",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "a370442376c5ce96cf8ca2dfca216490b3f1cc61",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "8e1372a3ec4afa47fb05cd809b5258090d6bacab",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "1eaf10f6bdd825d8b5e87dd70a0e1ed7fdc8ffe7",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "de8c34cae1dc585b57782b8b0c9aac869dca389f",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "37725674a3d8455a16a2ed8c032a26681c9fe190",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "f289753ee68082b7a6d4e6425c3381793d52d0be",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "250b7e45203c9cc7b4d4e24d147967b2b8bd9b29",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "5d9699daf0bef6eedd191ae0a148e965b7bd6fcd",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "9791e80cd115fefe2f92c4c0c77188fb531c7778",
+                "type": "COMPONENT"
+              }
+            ],
+            "type": "INSTANCE_SWAP",
+            "value": "7178:88760"
+          },
+          "Label#52235:0": {
+            "type": "BOOLEAN",
+            "value": false
+          },
+          "Size": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "Medium (default)"
+          },
+          "Small icon:#2722:13": {
+            "preferredValues": [
+              {
+                "key": "bb06c385e201b6d69107742828791db37886fbff",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "0bb034885a292655876304bc937250ee871e26b3",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "5421a1edace3cb79fc46091cddd0152b2110e28c",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "4a459c5e4526d124d1f217495a8c79ab214b16d5",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "58c7e3646096e6dfcc122932ee143dce4859d533",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "aacf60ed59f383ba6ad3a47de26a9ee787c589ca",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "4852ae6b5e6c1885c2e568994595c506603bbd80",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "d8c0dec4de4bdf90b79267c15aede861263fb17e",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "0e3c068cc2fe9fdb9e6f9480b63fa197c1e09d11",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "237c79bbf93e3366bb026dea4922bfaa140f6332",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "8b582a5a2d6d9a30134d6b600f60fdaee5d075eb",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "4b49277509f25b8cdeef400f344f8000bfc5a7b0",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "489d901178dbfe7e812867dc7da6a89deb023064",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "cb502569954841608faa75b02c5580c1cabe2fba",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "90526b1c0b81b94a2c6c23ae048eb16e4f297d78",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "250cd77db68b12e5638942d5e6cbdcc034c43d93",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "3514ca744f9e004affa4888c2a9447b217632d3f",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "44e18958e4046fa1c9b4dc2f6ad2de2caef6c225",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "03235bb20c425a2bc96b26160218f64a67c04018",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "046138364bd003d71ce988b0e078e31382310228",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "c7b4e04d79d44d4432e2f0b0b3ec012be28aba74",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "d307274384e366e7bee2f57692e787a742dd75cc",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "6fdd4a01af5415a07dfb228e11ec919cca8bd2df",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "db05cb932121d46c184c2958eb1827296dd2b0e5",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "58e9fb550280652e5b76846abdbec9f308163394",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "ee0891082d9b9123d5e6efde5c8310a6191570ed",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "a3d884d12202fd90c7536abe8f5dc01b3c318138",
+                "type": "COMPONENT_SET"
+              },
+              {
+                "key": "14060096aa254da81b8f0e3f4b5e3bc7a9ace597",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "baa16e422f3b55611ef5989750d30b5f40bddc34",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "36f29ac501d50c6aa7df45ec31e8d0dd6872bd0c",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "c3107ed40fe6e064c4b684e655d03c101c67d818",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "80a93de5fb53b428e3a6ba3b94dcb9f576d7dfbf",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "e67c3363f28dda718cc1dd72a9274a0471b26129",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "5383815a58c4ddb7af8fb835fd4871555a3a73d2",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "ac9ed4bcf1281eb4797fdd8aa195ab8f50a1a68e",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "e4d581ed1a43bd000636c078b8e084dd07993762",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "c8fd51398430521223db2a79c79d41729933499a",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "1add3dc54a1861c8166b2ad7e35a2ead2aa7b2b0",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "3a7c49680553076c9dced4cc7f2349d9f749b425",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "c3f19645d32074d5f5c6b951cf7cfe7cf6c5167d",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "f77bafa0c8735f57fee1610f753a61421a81c6c1",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "236569cb3d5e484bff666c237664434a7745a776",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "67b87c9c46b962e6750ea616f63368e31fbcc3e1",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "43dccab163410b48d008078f8d4ea835fd401652",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "6e3bae9e074eb76a963be6950284517afa877280",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "052e31c0e6e6e36a20146a1cdb71896833d52a92",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "b329e49e8de09aa3663438a6c328ce7f090bfa4c",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "c3a12ab512800a2b1cf697974e3cd4ffef3ff20f",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "9a00c6997666887579749e733c9b5c65127d7c63",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "b0c37f7ede976633ebfd0b71b3d567c183b2f019",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "f54b0942c2e61058dfa3573241d3c8c33656fe69",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "e87fda1227fbc4c80db4c910ad432af36755bf53",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "03bc69b1a2739fe4e51e5b73ae1b07a47264ca11",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "c602d9660bf64404b08c71f68d8e4d410ad8faa3",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "4008be61a8d76b84858fd96dc9aa383ee7f86385",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "cdfba9c663176087a7c30d9e2936086978f7a2bf",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "35c9646f9c8e83d37fb705ae8aac3798711fe57e",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "86abd9845476ed190a2250cefbdd282868bf0763",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "7713dfc3dd620bf0c28934d5a4c6599f07ca71c1",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "1e33d0e3de9a12f87a438adb10aa7cfa07fd4539",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "b6fc33652d612f6ae349278ec680158c2605b754",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "7de05882ad66b7e2579ab8e196ad514f367c81dc",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "ecbed2974b66172fbc2091969b53eaca85886b15",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "806e7de4714876c109a34a23e4d26f901de76b49",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "46021c4354faab60967887c3adb2a4f3d0535e94",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "c17805a710c7962afb97cb0e71d0853320e2a8c7",
+                "type": "COMPONENT_SET"
+              },
+              {
+                "key": "1c373bf815c6c5b3de4430e11c3ef568ef549032",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "223331624a479d356a4409a262bb972a08741c4a",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "849d94225808363e47788be1113cfe361c453342",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "214b7f7f44f3550f5ee5e0ee3a0d44f5b934199d",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "8f4a8507978d466695a1434c83c40f49e36093f2",
+                "type": "COMPONENT"
+              },
+              {
+                "key": "4e43dce04e1e9865311b8b528c620a3685e0fb1c",
+                "type": "COMPONENT"
+              }
+            ],
+            "type": "INSTANCE_SWAP",
+            "value": "7528:32911"
+          },
+          "State": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "Default"
+          },
+          "is Contained": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "No"
+          },
+          "is Elevated": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "No"
+          },
+          "✍️ Label#52235:28": {
+            "type": "TEXT",
+            "value": "Label"
+          }
+        }
+      },
+      {
+        "name": "ic-arrow-tail-back",
+        "identity": {
+          "componentId": "7178:88760",
+          "componentKey": "3857223a6e03b86e4b94bd111d174aa867f8c5a4",
+          "componentSetKey": null,
+          "name": "ic-arrow-tail-back",
+          "remote": true,
+          "setName": null
+        }
+      },
+      {
+        "name": "📱 Search / Input",
+        "identity": {
+          "componentId": "7528:34872",
+          "componentKey": "13df53b67912b6ec4435e50a6fa2b288f760ebde",
+          "componentSetKey": "13f01ac1b94efd73608be5c5e9c13678f2f3c8ac",
+          "name": "State=Focused",
+          "remote": true,
+          "setName": "📱 Search / Input"
+        },
+        "props": {
+          "State": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "Focused"
+          }
+        }
+      },
+      {
+        "name": "ic-search",
+        "identity": {
+          "componentId": "101:2236",
+          "componentKey": "91e13dbd41b59b9f64e9367a6a73c13e25b169b0",
+          "componentSetKey": null,
+          "name": "ic-search",
+          "remote": true,
+          "setName": null
+        }
+      },
+      {
+        "name": ".Typing indicator",
+        "identity": {
+          "componentId": "3154:46516",
+          "componentKey": "8625df4c0a01852acf1e167c7d6f893a39cce1d1",
+          "componentSetKey": "f2dd9ae189d1ad1f3029d74922731587107eab0a",
+          "name": "Frame=1",
+          "remote": true,
+          "setName": ".Typing indicator"
+        },
+        "props": {
+          "Frame": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "1"
+          }
+        }
+      },
+      {
+        "name": "📱 Button text small",
+        "identity": {
+          "componentId": "7528:35757",
+          "componentKey": "fc990fd71434c9d74761173a2f81a63ec8b6d8cc",
+          "componentSetKey": "b804fbe50b5784740a5b66885ce75b954f43216b",
+          "name": "State=Default, Side-spacing=False",
+          "remote": true,
+          "setName": "📱 Button text small"
+        },
+        "props": {
+          "Side-spacing": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "False"
+          },
+          "State": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "Default"
+          }
+        }
+      },
+      {
+        "name": "📱 Pills small",
+        "identity": {
+          "componentId": "7528:35691",
+          "componentKey": "d68902af7cd2a5b904b2333bfc521686c808e3fa",
+          "componentSetKey": "14f90c3a1d034bc6a30baffaacc37eb7d285c641",
+          "name": "State=Default, Selected=False, Icon=None, Icon only=No",
+          "remote": true,
+          "setName": "📱 Pills small"
+        },
+        "props": {
+          "Icon": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "None"
+          },
+          "Icon only": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "No"
+          },
+          "Label#34573:0": {
+            "type": "TEXT",
+            "value": "milk"
+          },
+          "Selected": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "False"
+          },
+          "State": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "Default"
+          },
+          "🔁 icon#34573:17": {
+            "preferredValues": [
+              {
+                "key": "3448efd294a998bed58e591390bbea34e4ff49ac",
+                "type": "COMPONENT"
+              }
+            ],
+            "type": "INSTANCE_SWAP",
+            "value": "7528:35685"
+          }
+        }
+      },
+      {
+        "name": "📱 Pills small",
+        "identity": {
+          "componentId": "7528:35691",
+          "componentKey": "d68902af7cd2a5b904b2333bfc521686c808e3fa",
+          "componentSetKey": "14f90c3a1d034bc6a30baffaacc37eb7d285c641",
+          "name": "State=Default, Selected=False, Icon=None, Icon only=No",
+          "remote": true,
+          "setName": "📱 Pills small"
+        },
+        "props": {
+          "Icon": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "None"
+          },
+          "Icon only": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "No"
+          },
+          "Label#34573:0": {
+            "type": "TEXT",
+            "value": "bread"
+          },
+          "Selected": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "False"
+          },
+          "State": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "Default"
+          },
+          "🔁 icon#34573:17": {
+            "preferredValues": [
+              {
+                "key": "3448efd294a998bed58e591390bbea34e4ff49ac",
+                "type": "COMPONENT"
+              }
+            ],
+            "type": "INSTANCE_SWAP",
+            "value": "7528:35685"
+          }
+        }
+      },
+      {
+        "name": "📱 Pills small",
+        "identity": {
+          "componentId": "7528:35691",
+          "componentKey": "d68902af7cd2a5b904b2333bfc521686c808e3fa",
+          "componentSetKey": "14f90c3a1d034bc6a30baffaacc37eb7d285c641",
+          "name": "State=Default, Selected=False, Icon=None, Icon only=No",
+          "remote": true,
+          "setName": "📱 Pills small"
+        },
+        "props": {
+          "Icon": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "None"
+          },
+          "Icon only": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "No"
+          },
+          "Label#34573:0": {
+            "type": "TEXT",
+            "value": "eggs"
+          },
+          "Selected": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "False"
+          },
+          "State": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "Default"
+          },
+          "🔁 icon#34573:17": {
+            "preferredValues": [
+              {
+                "key": "3448efd294a998bed58e591390bbea34e4ff49ac",
+                "type": "COMPONENT"
+              }
+            ],
+            "type": "INSTANCE_SWAP",
+            "value": "7528:35685"
+          }
+        }
+      },
+      {
+        "name": "📱 Pills small",
+        "identity": {
+          "componentId": "7528:35691",
+          "componentKey": "d68902af7cd2a5b904b2333bfc521686c808e3fa",
+          "componentSetKey": "14f90c3a1d034bc6a30baffaacc37eb7d285c641",
+          "name": "State=Default, Selected=False, Icon=None, Icon only=No",
+          "remote": true,
+          "setName": "📱 Pills small"
+        },
+        "props": {
+          "Icon": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "None"
+          },
+          "Icon only": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "No"
+          },
+          "Label#34573:0": {
+            "type": "TEXT",
+            "value": "ice cream"
+          },
+          "Selected": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "False"
+          },
+          "State": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "Default"
+          },
+          "🔁 icon#34573:17": {
+            "preferredValues": [
+              {
+                "key": "3448efd294a998bed58e591390bbea34e4ff49ac",
+                "type": "COMPONENT"
+              }
+            ],
+            "type": "INSTANCE_SWAP",
+            "value": "7528:35685"
+          }
+        }
+      },
+      {
+        "name": "📱 Pills small",
+        "identity": {
+          "componentId": "7528:35691",
+          "componentKey": "d68902af7cd2a5b904b2333bfc521686c808e3fa",
+          "componentSetKey": "14f90c3a1d034bc6a30baffaacc37eb7d285c641",
+          "name": "State=Default, Selected=False, Icon=None, Icon only=No",
+          "remote": true,
+          "setName": "📱 Pills small"
+        },
+        "props": {
+          "Icon": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "None"
+          },
+          "Icon only": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "No"
+          },
+          "Label#34573:0": {
+            "type": "TEXT",
+            "value": "rice"
+          },
+          "Selected": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "False"
+          },
+          "State": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "Default"
+          },
+          "🔁 icon#34573:17": {
+            "preferredValues": [
+              {
+                "key": "3448efd294a998bed58e591390bbea34e4ff49ac",
+                "type": "COMPONENT"
+              }
+            ],
+            "type": "INSTANCE_SWAP",
+            "value": "7528:35685"
+          }
+        }
+      },
+      {
+        "name": "📱 Pills small",
+        "identity": {
+          "componentId": "7528:35691",
+          "componentKey": "d68902af7cd2a5b904b2333bfc521686c808e3fa",
+          "componentSetKey": "14f90c3a1d034bc6a30baffaacc37eb7d285c641",
+          "name": "State=Default, Selected=False, Icon=None, Icon only=No",
+          "remote": true,
+          "setName": "📱 Pills small"
+        },
+        "props": {
+          "Icon": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "None"
+          },
+          "Icon only": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "No"
+          },
+          "Label#34573:0": {
+            "type": "TEXT",
+            "value": "chocolate"
+          },
+          "Selected": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "False"
+          },
+          "State": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "Default"
+          },
+          "🔁 icon#34573:17": {
+            "preferredValues": [
+              {
+                "key": "3448efd294a998bed58e591390bbea34e4ff49ac",
+                "type": "COMPONENT"
+              }
+            ],
+            "type": "INSTANCE_SWAP",
+            "value": "7528:35685"
+          }
+        }
+      },
+      {
+        "name": "📱 Pills small",
+        "identity": {
+          "componentId": "7528:35691",
+          "componentKey": "d68902af7cd2a5b904b2333bfc521686c808e3fa",
+          "componentSetKey": "14f90c3a1d034bc6a30baffaacc37eb7d285c641",
+          "name": "State=Default, Selected=False, Icon=None, Icon only=No",
+          "remote": true,
+          "setName": "📱 Pills small"
+        },
+        "props": {
+          "Icon": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "None"
+          },
+          "Icon only": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "No"
+          },
+          "Label#34573:0": {
+            "type": "TEXT",
+            "value": "coca cola"
+          },
+          "Selected": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "False"
+          },
+          "State": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "Default"
+          },
+          "🔁 icon#34573:17": {
+            "preferredValues": [
+              {
+                "key": "3448efd294a998bed58e591390bbea34e4ff49ac",
+                "type": "COMPONENT"
+              }
+            ],
+            "type": "INSTANCE_SWAP",
+            "value": "7528:35685"
+          }
+        }
+      },
+      {
+        "name": "📱 Pills small",
+        "identity": {
+          "componentId": "7528:35691",
+          "componentKey": "d68902af7cd2a5b904b2333bfc521686c808e3fa",
+          "componentSetKey": "14f90c3a1d034bc6a30baffaacc37eb7d285c641",
+          "name": "State=Default, Selected=False, Icon=None, Icon only=No",
+          "remote": true,
+          "setName": "📱 Pills small"
+        },
+        "props": {
+          "Icon": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "None"
+          },
+          "Icon only": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "No"
+          },
+          "Label#34573:0": {
+            "type": "TEXT",
+            "value": "tomatos"
+          },
+          "Selected": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "False"
+          },
+          "State": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "Default"
+          },
+          "🔁 icon#34573:17": {
+            "preferredValues": [
+              {
+                "key": "3448efd294a998bed58e591390bbea34e4ff49ac",
+                "type": "COMPONENT"
+              }
+            ],
+            "type": "INSTANCE_SWAP",
+            "value": "7528:35685"
+          }
+        }
+      },
+      {
+        "name": "📱 Pills small",
+        "identity": {
+          "componentId": "7528:35691",
+          "componentKey": "d68902af7cd2a5b904b2333bfc521686c808e3fa",
+          "componentSetKey": "14f90c3a1d034bc6a30baffaacc37eb7d285c641",
+          "name": "State=Default, Selected=False, Icon=None, Icon only=No",
+          "remote": true,
+          "setName": "📱 Pills small"
+        },
+        "props": {
+          "Icon": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "None"
+          },
+          "Icon only": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "No"
+          },
+          "Label#34573:0": {
+            "type": "TEXT",
+            "value": "Flowers"
+          },
+          "Selected": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "False"
+          },
+          "State": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "Default"
+          },
+          "🔁 icon#34573:17": {
+            "preferredValues": [
+              {
+                "key": "3448efd294a998bed58e591390bbea34e4ff49ac",
+                "type": "COMPONENT"
+              }
+            ],
+            "type": "INSTANCE_SWAP",
+            "value": "7528:35685"
+          }
+        }
+      },
+      {
+        "name": "📱 Pills small",
+        "identity": {
+          "componentId": "7528:35691",
+          "componentKey": "d68902af7cd2a5b904b2333bfc521686c808e3fa",
+          "componentSetKey": "14f90c3a1d034bc6a30baffaacc37eb7d285c641",
+          "name": "State=Default, Selected=False, Icon=None, Icon only=No",
+          "remote": true,
+          "setName": "📱 Pills small"
+        },
+        "props": {
+          "Icon": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "None"
+          },
+          "Icon only": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "No"
+          },
+          "Label#34573:0": {
+            "type": "TEXT",
+            "value": "pizza"
+          },
+          "Selected": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "False"
+          },
+          "State": {
+            "boundVariables": {},
+            "type": "VARIANT",
+            "value": "Default"
+          },
+          "🔁 icon#34573:17": {
+            "preferredValues": [
+              {
+                "key": "3448efd294a998bed58e591390bbea34e4ff49ac",
+                "type": "COMPONENT"
+              }
+            ],
+            "type": "INSTANCE_SWAP",
+            "value": "7528:35685"
+          }
+        }
+      }
+    ]
+  },
+  "independentCounts": {
+    "sourceNodes": 506,
+    "sourceProperties": 14210,
+    "active": 158,
+    "hidden": 348,
+    "partitionErrors": 0,
+    "pngDimensions": [
+      375,
+      843
+    ],
+    "catalogCounts": {
+      "styles": [
+        20,
+        20
+      ],
+      "components": [
+        60,
+        60
+      ],
+      "componentSets": [
+        38,
+        38
+      ]
+    }
+  },
+  "comparisonNote": "All supplied node fields compare equal, treating numeric -0 and 0 as equal. Not proof of unfetched Figma fields or Android parity."
+}
